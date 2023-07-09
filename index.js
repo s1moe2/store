@@ -1,10 +1,13 @@
 const express = require("express");
 const app = express();
 const { logger } = require("./middleware");
-const users = require("./users");
+const products = require("./products")
+const users = require ("./users")
+
 
 app.use(logger);
 
+app.use("/products", products);
 app.use("/users", users);
 
 app.use((err, req, res, next) => {
