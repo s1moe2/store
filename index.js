@@ -4,11 +4,11 @@ const { logger } = require("./middleware");
 const users = require("./users");
 const products = require("./products");
 
-app.use(express.json())
-
+app.use(express.json());
 app.use(logger);
 
 app.use("/users", users);
+app.use("/products", products);
 
 app.use("/products", products);
 
