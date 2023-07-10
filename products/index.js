@@ -3,9 +3,9 @@ const router = express.Router();
 const { products } = require("../db");
 
 router.get("/", (req, res) => {
-  const products = products.filter((p) => p.category === req.query.cat);
+  const productsQueries = products.filter((p) => p.category === req.query.cat);
 
-  res.status(200).json(products);
+  res.status(200).json(productsQueries);
 });
 
 router.get("/:id", (req, res, next) => {

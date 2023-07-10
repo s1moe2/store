@@ -11,7 +11,7 @@ app.use("/products", products);
 app.use("/users", users);
 
 app.use((err, req, res, next) => {
-  pino.error(err);
+  console.error(err);
   res.status(500).json({ error: "internal error" });
 });
 
