@@ -1,6 +1,12 @@
 const express = require("express");
 const router = express.Router();
 const { users } = require("../db");
+const { body, validationResult } = require("express-validator");
+
+const validation = [
+  body("name").isString().notEmpty().exists(),
+  body("email").isEmail().notEmpty().exists(),
+];
 
 router.get("/", (req, res) => {
   const users = db.users.map((user) => {
@@ -19,7 +25,12 @@ router.get("/:id", (req, res) => {
   res.status(200).json(user);
 });
 
-router.put("/:id", (req, res) => {
+router.put("/:id", validation, (req, res) => {
+  const validationRes = validationResult(req);
+  if (!validationRes.isEmpty()) {
+    return res.status(400).json({ errors: validationRes.array() });
+  }
+
   //find user by id
   const userIx = users.findIndex((u) => u.id === parseInt(req.params.id));
 

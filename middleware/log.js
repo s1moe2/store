@@ -1,14 +1,14 @@
 function logger(req, res, next) {
-    const log = {
-        method: req.method,
-        path: req.path
-    }
+  const log = {
+    method: req.method,
+    path: req.path,
+  };
 
-    next()
+  next();
 
-    console.log({ ...log, status: res.statusCode })
+  console.log({ ...log, status: res.statusCode });
 }
 
 module.exports = {
-    logger
-}
+  logger,
+};
