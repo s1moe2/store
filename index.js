@@ -3,9 +3,12 @@ const app = express();
 app.use(express.json());
 const { logger } = require("./middleware");
 const users = require("./users");
+const products = require("./products");
 
+app.use(express.json());
 app.use(logger);
 
+app.use("/products", products);
 app.use("/users", users);
 
 app.use((err, req, res, next) => {

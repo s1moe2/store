@@ -2,7 +2,17 @@ const express = require("express");
 const router = express.Router();
 const { users } = require("../db");
 
-// get by id
+router.get("/", (req, res) => {
+  const users = db.users.map((user) => {
+    return {
+      id: user.id,
+      name: user.name,
+      email: user.email,
+    };
+  });
+  res.status(200).json(users);
+});
+
 router.get("/:id", (req, res) => {
   const user = users.find((u) => u.id === parseInt(req.params.id));
   if (!user) return res.status(404).json({ error: "user not found" });

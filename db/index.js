@@ -1,3 +1,4 @@
+
 const db = {
     orders: [{
         userID: 1,
@@ -20,6 +21,13 @@ const db = {
     products: [{
         id: 1,
         name: "Macbook Pro",
+        category: "tech",
+        price: 3000,
+        image: "https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/mbp-spacegray-select-202206_GEO_PT"
+    },
+    {
+        id: 2,
+        name: "Macbook dasdadasd",
         category: "tech",
         price: 3000,
         image: "https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/mbp-spacegray-select-202206_GEO_PT"
