@@ -10,8 +10,6 @@ app.use(logger);
 app.use("/users", users);
 app.use("/products", products);
 
-app.use("/products", products);
-
 app.use((err, req, res, next) => {
   console.error(err);
   res.status(500).json({ error: "internal error" });

@@ -9,4 +9,15 @@ router.get("/:id", (req, res) => {
   res.status(200).json(user);
 });
 
+router.get("/", (req, res) => {
+  const users = db.users.map((user) => {
+    return {
+      id: user.id,
+      name: user.name,
+      email: user.email,
+    };
+  });
+  res.status(200).json(users);
+});
+
 module.exports = router;
