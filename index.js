@@ -1,6 +1,5 @@
 const express = require("express");
 const app = express();
-app.use(express.json());
 const { logger } = require("./middleware");
 const users = require("./users");
 const products = require("./products");
