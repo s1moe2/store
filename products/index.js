@@ -2,6 +2,21 @@ const express = require("express");
 const router = express.Router();
 const { products } = require("../db");
 
+router.get("/", (req, res) => {
+  const products = products.filter((p) => p.category === req.query.cat);
+
+  res.status(200).json(products);
+});
+
+router.get("/:id", (req, res, next) => {
+  try {
+    const products = products.find((product) => product.id === parseInt(req.params.id));
+    res.status(200).json(products);
+  } catch (err) {
+    next(err);
+  }
+});
+
 router.delete("/:id", (req, res) => {
   const productIx = products.findIndex((u) => u.id === parseInt(req.params.id));
   if (productIx === -1) {

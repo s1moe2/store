@@ -7,8 +7,8 @@ const products = require("./products");
 app.use(express.json());
 app.use(logger);
 
-app.use("/users", users);
 app.use("/products", products);
+app.use("/users", users);
 
 app.use((err, req, res, next) => {
   console.error(err);
