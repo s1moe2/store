@@ -17,8 +17,7 @@ app.get("/", (req, res) => {
       email: user.email,
     };
   });
-  res.json(users);
-  console.log(users);
+  res.status(200).json(users);
 });
 
 module.exports = router;
