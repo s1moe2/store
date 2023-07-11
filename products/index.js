@@ -24,7 +24,7 @@ router.delete("/:id", (req, res) => {
   }
 
   products.splice(productIx, 1);
-  res.status(200).json({ message: 'Product removed successfully.' });
+  res.status(200).json({ message: "Product removed successfully." });
 });
 
 router.post("/", (req, res) => {

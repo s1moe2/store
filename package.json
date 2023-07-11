@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "dev": "nodemon index.js"
+    "dev": "nodemon index.js",
+    "lint": "eslint --ext .js .",
+    "fmt": "prettier --write ."
   },
   "keywords": [],
   "author": "",
@@ -15,6 +17,9 @@
     "pino-http": "^8.3.3"
   },
   "devDependencies": {
-    "nodemon": "^2.0.22"
+    "eslint": "^8.44.0",
+    "eslint-config-prettier": "^8.8.0",
+    "nodemon": "^2.0.22",
+    "prettier": "^3.0.0"
   }
 }
