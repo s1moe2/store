@@ -3,22 +3,21 @@ const router = express.Router();
 const { products } = require("../db");
 const { orders } = require("../db");
 
-// router.get("/", (req, res) => {
-//   const prd = products.filter((p) => p.category === req.query.cat);
+router.get("/", (req, res) => {
+  const prd = products.filter((p) => p.category === req.query.cat);
 
-//   res.status(200).json(prd);
-// });
+  res.status(200).json(prd);
+});
 
-// router.get("/:id", (req, res, next) => {
-//   try {
-//     const prd = products.find(
-//       (product) => product.id === parseInt(req.params.id)
-//     );
-//     res.status(200).json(prd);
-//   } catch (err) {
-//     next(err);
-//   }
-// });
+router.get("/:id", (req, res, next) => {
+  const prd = products.find(
+    (product) => product.id === parseInt(req.params.id)
+  );
+
+  if (!prd) return res.status(404).json({ error: "product not found" })
+
+  res.status(200).json(prd);
+});
 
 router.get("/bestsellers", (req, res) => {
   const bestsellers = [];
