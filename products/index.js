@@ -6,7 +6,7 @@ const { body, validationResult } = require("express-validator");
 const validation = [
   body("name").isString().exists().notEmpty(),
   body("category").isString().exists().notEmpty(),
-  body("price").isNumeric().exists().notEmpty(),
+  body("price").isNumeric().exists(),
   body("image").isString().exists().notEmpty(),
 ];
 
