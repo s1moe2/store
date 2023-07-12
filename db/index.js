@@ -1,7 +1,7 @@
 const db = {
   orders: [
     {
-      id:1,
+      id: 1,
       userID: 1,
       products: [
         {

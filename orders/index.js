@@ -8,7 +8,7 @@ router.put("/:id", (req, res) => {
   if (orderIx === -1) return res.status(404).json({ error: "order not found" });
 
   //body input
-  bodyStatus = req.body.status;
+  const bodyStatus = req.body.status;
 
   const possibleStatus = ["created", "preparing", "shipped", "delivered"];
 

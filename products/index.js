@@ -11,19 +11,12 @@ const validation = [
 ];
 
 router.get("/", (req, res) => {
-  const prods = prods
-  if(req.query.cat) {
+  const prods = products;
+  if (req.query.cat) {
     prods.filter((p) => p.category === req.query.cat);
   }
 
   res.status(200).json(prods);
-});
-
-router.get("/:id", (req, res) => {
-  const products = products.find(
-    (product) => product.id === parseInt(req.params.id)
-  );
-  res.status(200).json(products);
 });
 
 router.get("/bestsellers", (req, res) => {
@@ -48,11 +41,14 @@ router.get("/bestsellers", (req, res) => {
   if (top <= 0 || isNaN(top)) {
     return res.status(400).json({ error: "invalid value" });
   }
-  const topProducts = bestsellers
-    .sort((a, b) => b.count - a.count)
-    .slice(0, top);
+  const topProducts = bestsellers.sort((a, b) => b.count - a.count).slice(0, top);
 
   return res.status(200).json(topProducts);
+});
+
+router.get("/:id", (req, res) => {
+  const prods = products.find((product) => product.id === parseInt(req.params.id));
+  res.status(200).json(prods);
 });
 
 router.delete("/:id", (req, res) => {
@@ -71,6 +67,8 @@ router.post("/", validation, (req, res) => {
     return res.status(400).json({ error: validationProduct.array() });
   }
 
+  const product = req.body;
+
   const newProduct = {
     id: products.length + 1,
     name: product.name,
@@ -78,6 +76,7 @@ router.post("/", validation, (req, res) => {
     price: product.price,
     image: product.image,
   };
+
   products.push(newProduct);
 
   res.status(201).json(newProduct);
