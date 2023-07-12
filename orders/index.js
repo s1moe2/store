@@ -22,4 +22,44 @@ router.put("/:id", (req, res) => {
   res.status(200).json({ previousStatus, newStatus: orders[orderIx].status });
 });
 
+router.post("/", (req, res) => {
+  const { userId, products } = req.body;
+
+  const status = "placed"; // Assuming "placed" is a valid status
+
+  // criar o objeto order
+  const order = {
+    id: generateOrderId(),
+    userId,
+    products,
+    price: calculateTotalPrice(products),
+    dateTime: new Date(),
+    status,
+  };
+
+  orders.push(order);
+
+  // enviar resposta
+  res.status(200).json(order);
+});
+
+// funcao calcular total produto
+function calculateTotalPrice(products) {
+  let totalPrice = 0;
+  for (let i = 0; i < products.length; i++) {
+    totalPrice += products[i].price;
+  }
+  return totalPrice;
+}
+
+// Gerar um id aleatorio
+function generateOrderId() {
+  const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  let orderId = "";
+  for (let i = 0; i < 10; i++) {
+    orderId += chars.charAt(Math.floor(Math.random() * chars.length));
+  }
+  return orderId;
+}
+
 module.exports = router;
