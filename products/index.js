@@ -1,22 +1,29 @@
 const express = require("express");
 const router = express.Router();
-const { products } = require("../db");
-const { orders } = require("../db");
+const { products, orders } = require("../db");
+const { body, validationResult } = require("express-validator");
+
+const validation = [
+  body("name").isString().exists().notEmpty(),
+  body("category").isString().exists().notEmpty(),
+  body("price").isNumeric().exists(),
+  body("image").isString().exists().notEmpty(),
+];
 
 router.get("/", (req, res) => {
-  const prd = products.filter((p) => p.category === req.query.cat);
+  const prods = prods
+  if(req.query.cat) {
+    prods.filter((p) => p.category === req.query.cat);
+  }
 
-  res.status(200).json(prd);
+  res.status(200).json(prods);
 });
 
-router.get("/:id", (req, res, next) => {
-  const prd = products.find(
+router.get("/:id", (req, res) => {
+  const products = products.find(
     (product) => product.id === parseInt(req.params.id)
   );
-
-  if (!prd) return res.status(404).json({ error: "product not found" })
-
-  res.status(200).json(prd);
+  res.status(200).json(products);
 });
 
 router.get("/bestsellers", (req, res) => {
@@ -58,10 +65,10 @@ router.delete("/:id", (req, res) => {
   res.status(200).json({ message: "Product removed successfully." });
 });
 
-router.post("/", (req, res) => {
-  const product = req.body;
-  if (!product.name || !product.category || !product.price || !product.image) {
-    return res.status(400).json({ error: "Invalid product" });
+router.post("/", validation, (req, res) => {
+  const validationProduct = validationResult(req);
+  if (!validationProduct.isEmpty()) {
+    return res.status(400).json({ error: validationProduct.array() });
   }
 
   const newProduct = {
