@@ -24,7 +24,7 @@ router.put("/:id", (req, res) => {
 
 router.post("/", (req, res) => {
   const { userId, products } = req.body;
-  
+
   const status = "placed"; // Assuming "placed" is a valid status
 
   // criar o objeto order
@@ -54,14 +54,12 @@ function calculateTotalPrice(products) {
 
 // Gerar um id aleatorio
 function generateOrderId() {
-  const chars =
-    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
   let orderId = "";
   for (let i = 0; i < 10; i++) {
     orderId += chars.charAt(Math.floor(Math.random() * chars.length));
   }
   return orderId;
 }
-
 
 module.exports = router;
