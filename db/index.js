@@ -1,6 +1,7 @@
 const db = {
   orders: [
     {
+      id:1,
       userID: 1,
       products: [
         {
@@ -30,6 +31,7 @@ const db = {
       ],
       price: 3000,
       orderedAt: new Date(2023, 0, 1, 10, 0, 0),
+      status: "delivered",
     },
   ],
   users: [
