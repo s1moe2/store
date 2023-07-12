@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const { users } = require("../db");
+const { users, orders } = require("../db");
+
 const { body, validationResult } = require("express-validator");
 
 const validation = [
@@ -23,6 +24,16 @@ router.get("/:id", (req, res) => {
   const user = users.find((u) => u.id === parseInt(req.params.id));
   if (!user) return res.status(404).json({ error: "user not found" });
   res.status(200).json(user);
+});
+
+router.get("/:id/orders", (req, res) => {
+  const userId = parseInt(req.params.id);
+  const user = users.find((u) => u.id === userId);
+  if (!user) return res.status(404).json({ error: "user not found" });
+  const userOrders = orders.filter((order) => order.userID === userId);
+  if (!userOrders) return res.status(500).json({ error: "Orders not found" });
+  res.json({ userOrders: userOrders });
+  return res.status(200).json(userOrders);
 });
 
 router.put("/:id", validation, (req, res) => {
