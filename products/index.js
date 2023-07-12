@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { products } = require("../db");
+const { products, orders } = require("../db");
 const { body, validationResult } = require("express-validator");
 
 const validation = [
@@ -19,15 +19,40 @@ router.get("/", (req, res) => {
   res.status(200).json(prods);
 });
 
-router.get("/:id", (req, res, next) => {
-  try {
-    const products = products.find(
-      (product) => product.id === parseInt(req.params.id)
-    );
-    res.status(200).json(products);
-  } catch (err) {
-    next(err);
+router.get("/:id", (req, res) => {
+  const products = products.find(
+    (product) => product.id === parseInt(req.params.id)
+  );
+  res.status(200).json(products);
+});
+
+router.get("/bestsellers", (req, res) => {
+  const bestsellers = [];
+
+  orders.forEach((order) => {
+    order.products.forEach((product) => {
+      const productIndex = bestsellers.findIndex((p) => {
+        return p.id === product.id;
+      });
+
+      if (productIndex === -1) {
+        bestsellers.push({ id: product.id, name: product.name, count: 1 });
+      } else {
+        bestsellers[productIndex].count += 1;
+      }
+    });
+  });
+
+  const { top } = req.query;
+
+  if (top <= 0 || isNaN(top)) {
+    return res.status(400).json({ error: "invalid value" });
   }
+  const topProducts = bestsellers
+    .sort((a, b) => b.count - a.count)
+    .slice(0, top);
+
+  return res.status(200).json(topProducts);
 });
 
 router.delete("/:id", (req, res) => {
