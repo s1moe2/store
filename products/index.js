@@ -11,9 +11,12 @@ const validation = [
 ];
 
 router.get("/", (req, res) => {
-  const products = products.filter((p) => p.category === req.query.cat);
+  const prods = prods
+  if(req.query.cat) {
+    prods.filter((p) => p.category === req.query.cat);
+  }
 
-  res.status(200).json(products);
+  res.status(200).json(prods);
 });
 
 router.get("/:id", (req, res, next) => {

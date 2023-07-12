@@ -9,7 +9,7 @@ const validation = [
 ];
 
 router.get("/", (req, res) => {
-  const users = db.users.map((user) => {
+  const users = users.map((user) => {
     return {
       id: user.id,
       name: user.name,
@@ -44,7 +44,7 @@ router.put("/:id", validation, (req, res) => {
   users[userIx].email = req.body.email;
 
   //result
-  res.status(200).json(user);
+  res.status(200).json(users[userIx]);
 });
 
 module.exports = router;
