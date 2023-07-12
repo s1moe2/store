@@ -1,5 +1,5 @@
-const { logger } = require("./log")
+const pino = require("pino-http");
 
 module.exports = {
-    logger,
-}
+  logger: pino(),
+};

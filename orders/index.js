@@ -1,29 +1,39 @@
 const express = require("express");
-const { orders, products } = require("../db");
-const app = express();
+const router = express.Router();
+const { orders } = require("../db");
 
-let orders = [];
+router.put("/:id", (req, res) => {
+  const orderIx = orders.findIndex((order) => order.id === parseInt(req.params.id));
+  //order exists
+  if (orderIx === -1) return res.status(404).json({ error: "order not found" });
 
-app.use(express.json());
+  //body input
+  const bodyStatus = req.body.status;
 
-app.post("/", (req, res) => {
+  const possibleStatus = ["created", "preparing", "shipped", "delivered"];
+
+  if (!possibleStatus.includes(bodyStatus)) {
+    return res.status(400).json({ error: "Invalid body" });
+  }
+  // Update the status
+  const previousStatus = orders[orderIx].status;
+  orders[orderIx].status = bodyStatus;
+
+  res.status(200).json({ previousStatus, newStatus: orders[orderIx].status });
+});
+
+router.post("/", (req, res) => {
   const { userId, products } = req.body;
-
-  // Gerar um unico ID
-  const orderId = generateOrderId();
-
-  const price = calculateTotalPrice(products);
-
-  const dateTime = new Date();
-
+  
   const status = "placed"; // Assuming "placed" is a valid status
 
   // criar o objeto order
   const order = {
+    id: generateOrderId(),
     userId,
     products,
-    price,
-    dateTime,
+    price: calculateTotalPrice(products),
+    dateTime: new Date(),
     status,
   };
 
@@ -53,9 +63,5 @@ function generateOrderId() {
   return orderId;
 }
 
-// Start servidor
-app.listen(3000, () => {
-  console.log("Server started on port 3000");
-});
 
-module.exports = app; // exportar app
+module.exports = router;
