@@ -1,6 +1,14 @@
 const express = require("express");
 const router = express.Router();
 const { products } = require("../db");
+const { body, validationResult } = require("express-validator");
+
+const validation = [
+  body("name").isString().exists().notEmpty(),
+  body("category").isString().exists().notEmpty(),
+  body("price").isNumeric().exists(),
+  body("image").isString().exists().notEmpty(),
+];
 
 router.get("/", (req, res) => {
   const prods = prods
@@ -13,7 +21,9 @@ router.get("/", (req, res) => {
 
 router.get("/:id", (req, res, next) => {
   try {
-    const products = products.find((product) => product.id === parseInt(req.params.id));
+    const products = products.find(
+      (product) => product.id === parseInt(req.params.id)
+    );
     res.status(200).json(products);
   } catch (err) {
     next(err);
@@ -30,10 +40,10 @@ router.delete("/:id", (req, res) => {
   res.status(200).json({ message: "Product removed successfully." });
 });
 
-router.post("/", (req, res) => {
-  const product = req.body;
-  if (!product.name || !product.category || !product.price || !product.image) {
-    return res.status(400).json({ error: "Invalid product" });
+router.post("/", validation, (req, res) => {
+  const validationProduct = validationResult(req);
+  if (!validationProduct.isEmpty()) {
+    return res.status(400).json({ error: validationProduct.array() });
   }
 
   const newProduct = {
