@@ -3,9 +3,12 @@ const router = express.Router();
 const { products } = require("../db");
 
 router.get("/", (req, res) => {
-  const products = products.filter((p) => p.category === req.query.cat);
+  const prods = prods
+  if(req.query.cat) {
+    prods.filter((p) => p.category === req.query.cat);
+  }
 
-  res.status(200).json(products);
+  res.status(200).json(prods);
 });
 
 router.get("/:id", (req, res, next) => {
@@ -24,7 +27,7 @@ router.delete("/:id", (req, res) => {
   }
 
   products.splice(productIx, 1);
-  res.status(200).json({ message: 'Product removed successfully.' });
+  res.status(200).json({ message: "Product removed successfully." });
 });
 
 router.post("/", (req, res) => {

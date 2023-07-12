@@ -22,4 +22,3 @@ router.put("/:id", (req, res) => {
 
 module.exports = router;
 
-// created, preparing, shipped, delivered
