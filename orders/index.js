@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const { orders } = require("../db");
+const { orders, users } = require("../db");
+const { rewardPoints } = require("./reward-points");
 
 router.put("/:id", (req, res) => {
   const orderIx = orders.findIndex((order) => order.id === parseInt(req.params.id));
@@ -27,20 +28,34 @@ router.post("/", (req, res) => {
 
   const status = "placed"; // Assuming "placed" is a valid status
 
+  const userIx = users.findIndex((u) => u.id === parseInt(order.userId));
+  if (userIx === -1) return res.status(404).json({ error: "user not found" });
+
+  const finalPrice = calculateTotalPrice(products);
+
   // criar o objeto order
   const order = {
     id: generateOrderId(),
     userId,
     products,
-    price: calculateTotalPrice(products),
+    price: finalPrice,
     dateTime: new Date(),
     status,
+    rewardPoints: rewardPoints(finalPrice),
   };
 
   orders.push(order);
 
+  // update user reward pts
+  const user = users[userIx];
+  if (!user.rewardPoints) {
+    users[userIx].rewardPoints = 0;
+  }
+
+  users[userIx].rewardPoints = user.rewardPoints + order.rewardPoints;
+
   // enviar resposta
-  res.status(200).json(order);
+  res.status(200).json({ order, users });
 });
 
 // funcao calcular total produto
@@ -49,7 +64,7 @@ function calculateTotalPrice(products) {
   for (let i = 0; i < products.length; i++) {
     totalPrice += products[i].price;
   }
-  return totalPrice;
+  return totalPrice.toFixed(2);
 }
 
 // Gerar um id aleatorio

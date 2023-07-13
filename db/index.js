@@ -12,22 +12,6 @@ const db = {
           image:
             "https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/mbp-spacegray-select-202206_GEO_PT",
         },
-        {
-          id: 2,
-          name: "Macbook dasdadasd",
-          category: "tech",
-          price: 3000,
-          image:
-            "https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/mbp-spacegray-select-202206_GEO_PT",
-        },
-        {
-          id: 2,
-          name: "Macbook dasdadasd",
-          category: "tech",
-          price: 3000,
-          image:
-            "https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/mbp-spacegray-select-202206_GEO_PT",
-        },
       ],
       price: 3000,
       orderedAt: new Date(2023, 0, 1, 10, 0, 0),
