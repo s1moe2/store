@@ -23,7 +23,7 @@ const db = {
       id: 1,
       name: "Bill Gates",
       email: "bg@ms.x",
-      spent: 3000
+      spent: 3000,
     },
   ],
   products: [

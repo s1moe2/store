@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const { orders, users } = require("../db");
-const { rewardsPoints } = require("./rewardspoints");
+const { rewardPoints } = require("./reward-points");
 
 router.put("/:id", (req, res) => {
   const orderIx = orders.findIndex((order) => order.id === parseInt(req.params.id));
@@ -28,6 +28,9 @@ router.post("/", (req, res) => {
 
   const status = "placed"; // Assuming "placed" is a valid status
 
+  const userIx = users.findIndex((u) => u.id === parseInt(order.userId));
+  if (userIx === -1) return res.status(404).json({ error: "user not found" });
+
   const finalPrice = calculateTotalPrice(products);
 
   // criar o objeto order
@@ -38,26 +41,18 @@ router.post("/", (req, res) => {
     price: finalPrice,
     dateTime: new Date(),
     status,
-    rewardPoints: rewardsPoints(finalPrice),
+    rewardPoints: rewardPoints(finalPrice),
   };
 
   orders.push(order);
 
   // update user reward pts
-
-  const userIx = users.findIndex((u) => u.id === parseInt(order.userId));
-
-  if (userIx === -1) return res.status(404).json({ error: "user not found" });
-
   const user = users[userIx];
-
   if (!user.rewardPoints) {
     users[userIx].rewardPoints = 0;
   }
 
-  const userPoint = user.rewardPoints + order.rewardPoints;
-
-  users[userIx].rewardPoints = userPoint;
+  users[userIx].rewardPoints = user.rewardPoints + order.rewardPoints;
 
   // enviar resposta
   res.status(200).json({ order, users });
