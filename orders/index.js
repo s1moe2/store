@@ -1,26 +1,32 @@
 const express = require("express");
 const router = express.Router();
+const { findById, displayStatus, updateStatus } = require("./findById");
+const { param, body, validationResult } = require("express-validator");
 const { orders, users } = require("../db");
 const { rewardPoints } = require("./reward-points");
 
-router.put("/:id", (req, res) => {
-  const orderIx = orders.findIndex((order) => order.id === parseInt(req.params.id));
-  //order exists
-  if (orderIx === -1) return res.status(404).json({ error: "order not found" });
+const validation = [
+  param("id").isInt().exists(),
+  body("status").notEmpty().exists().contains(["created", "preparing", "shipped", "delivered"]),
+];
 
-  //body input
-  const bodyStatus = req.body.status;
-
-  const possibleStatus = ["created", "preparing", "shipped", "delivered"];
-
-  if (!possibleStatus.includes(bodyStatus)) {
-    return res.status(400).json({ error: "Invalid body" });
+router.put("/:id", validation, (req, res) => {
+  const validationRes = validationResult(req);
+  if (!validationRes.isEmpty()) {
+    return res.status(404).json({ error: validationRes.array() });
   }
-  // Update the status
-  const previousStatus = orders[orderIx].status;
-  orders[orderIx].status = bodyStatus;
 
-  res.status(200).json({ previousStatus, newStatus: orders[orderIx].status });
+  const orderIx = findById(parseInt(req.params.id));
+  //order exists
+  if (orderIx === -1) {
+    return res.status(404).json({ error: "Invalid Value" });
+  }
+
+  // Update the status
+  const previousStatus = displayStatus(orderIx);
+  updateStatus(orderIx, req.body.status);
+
+  res.status(200).json({ previousStatus, newStatus: displayStatus(orderIx) });
 });
 
 router.post("/", (req, res) => {
