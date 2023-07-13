@@ -28,11 +28,12 @@ router.get("/:id", (req, res) => {
 
 router.get("/:id/orders", (req, res) => {
   const userId = parseInt(req.params.id);
+  
   const user = users.find((u) => u.id === userId);
   if (!user) return res.status(404).json({ error: "user not found" });
+  
   const userOrders = orders.filter((order) => order.userID === userId);
-  if (!userOrders) return res.status(500).json({ error: "Orders not found" });
-  res.json({ userOrders: userOrders });
+
   return res.status(200).json(userOrders);
 });
 
