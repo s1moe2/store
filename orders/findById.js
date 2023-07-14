@@ -9,11 +9,11 @@ function displayStatus(orderId) {
 }
 
 function updateStatus(ix, newStatus) {
-  orders[ix].status = newStatus
+  orders[ix].status = newStatus;
 }
 
 module.exports = {
   findById,
   displayStatus,
   updateStatus,
-}  
+};
