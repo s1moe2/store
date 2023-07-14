@@ -12,7 +12,8 @@ app.use("/products", products);
 app.use("/users", users);
 app.use("/orders", orders);
 
-app.use((err, req, res) => {
+/* eslint-disable no-unused-vars*/
+app.use((err, req, res, next) => {
   console.error(err);
   res.status(500).json({ error: "internal error" });
 });
