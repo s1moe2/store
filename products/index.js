@@ -11,13 +11,28 @@ const validation = [
 ];
 
 router.get("/", (req, res) => {
-  const prods = prods
+  const prods = products;
   if(req.query.cat) {
     prods.filter((p) => p.category === req.query.cat);
   }
 
   res.status(200).json(prods);
 });
+
+router.put("/:id", (req, res) => {
+
+  const indexProduct = products.findIndex((product) => product.id === parseInt(req.params.id));
+
+  if (indexProduct === -1) return res.status(404).json({ error: "product not found" });
+
+  products[indexProduct].name = req.body.name;
+  products[indexProduct].category = req.body.category;
+  products[indexProduct].price = req.body.price;
+  products[indexProduct].image = req.body.image;
+
+  res.status(200).json(products[indexProduct]);
+
+})
 
 router.get("/:id", (req, res) => {
   const products = products.find(
@@ -73,10 +88,10 @@ router.post("/", validation, (req, res) => {
 
   const newProduct = {
     id: products.length + 1,
-    name: product.name,
-    category: product.category,
-    price: product.price,
-    image: product.image,
+    name: products.name,
+    category: products.category,
+    price: products.price,
+    image: products.image,
   };
   products.push(newProduct);
 
