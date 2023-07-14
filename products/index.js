@@ -3,6 +3,7 @@ const router = express.Router();
 const { products, orders } = require("../db");
 const { body, validationResult } = require("express-validator");
 
+
 const validation = [
   body("name").isString().exists().notEmpty(),
   body("category").isString().exists().notEmpty(),

@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const { orders } = require("../db");
+const config = require("../config");
 
 router.put("/:id", (req, res) => {
   const orderIx = orders.findIndex((order) => order.id === parseInt(req.params.id));
@@ -10,15 +11,15 @@ router.put("/:id", (req, res) => {
   //body input
   const bodyStatus = req.body.status;
 
-  const possibleStatus = ["created", "preparing", "shipped", "delivered"];
+  const orderStatuses = config.ORDER_STATUSES;
 
-  if (!possibleStatus.includes(bodyStatus)) {
+  if (!orderStatuses.includes(bodyStatus)) {
     return res.status(400).json({ error: "Invalid body" });
   }
   // Update the status
   const previousStatus = orders[orderIx].status;
   orders[orderIx].status = bodyStatus;
-
+  console.log(orderStatuses);
   res.status(200).json({ previousStatus, newStatus: orders[orderIx].status });
 });
 
