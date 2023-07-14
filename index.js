@@ -4,11 +4,13 @@ const { logger } = require("./middleware");
 const users = require("./users");
 const products = require("./products");
 const orders = require("./orders");
+const auth = require("./auth");
 const config = require("./config");
 
 app.use(express.json());
 app.use(logger);
 
+app.use("/auth", auth);
 app.use("/products", products);
 app.use("/users", users);
 app.use("/orders", orders);

@@ -212,24 +212,28 @@ const db = {
   users: [
     {
       id: 1,
+      username: "bill",
       name: "Bill Gates",
       email: "bg@ms.x",
       spent: 3000,
     },
     {
       id: 2,
+      username: "elon",
       name: "Elon Musk",
       email: "elon@tesla.com",
       spent: 5000,
     },
     {
       id: 3,
+      username: "jeff",
       name: "Jeff Bezos",
       email: "jeff@amazon.com",
       spent: 8000,
     },
     {
       id: 4,
+      username: "mark",
       name: "Mark Zuckerberg",
       email: "mark@facebook.com",
       spent: 2500,

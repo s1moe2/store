@@ -1,7 +1,13 @@
-require('dotenv').config()
+require("dotenv").config();
 
 const PORT = process.env.API_PORT;
 
 const ORDER_STATUSES = process.env.ORDER_STATUSES ? process.env.ORDER_STATUSES.split(",") : [];
 
-module.exports = { PORT, ORDER_STATUSES };
+const JWT_SECRET = process.env.JWT_SECRET;
+
+module.exports = {
+  PORT,
+  ORDER_STATUSES,
+  JWT_SECRET,
+};
