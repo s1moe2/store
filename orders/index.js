@@ -4,10 +4,11 @@ const { findById, displayStatus, updateStatus } = require("./findById");
 const { param, body, validationResult } = require("express-validator");
 const { orders, users } = require("../db");
 const { rewardPoints } = require("./reward-points");
+const config = require("../config");
 
 const validation = [
   param("id").isInt().exists(),
-  body("status").notEmpty().exists().contains(["created", "preparing", "shipped", "delivered"]),
+  body("status").notEmpty().exists().contains(config.ORDER_STATUSES),
 ];
 
 router.put("/:id", validation, (req, res) => {
