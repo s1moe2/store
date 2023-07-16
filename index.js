@@ -1,16 +1,19 @@
 const express = require("express");
 const app = express();
-const { logger } = require("./middleware");
+const { logger, auth } = require("./middleware");
 const users = require("./users");
 const products = require("./products");
 const orders = require("./orders");
-const auth = require("./auth");
+const authRoutes = require("./auth");
 const config = require("./config");
 
 app.use(express.json());
 app.use(logger);
 
-app.use("/auth", auth);
+app.use("/auth", authRoutes);
+
+app.use(auth);
+
 app.use("/products", products);
 app.use("/users", users);
 app.use("/orders", orders);

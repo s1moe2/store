@@ -238,6 +238,14 @@ const db = {
       email: "mark@facebook.com",
       spent: 2500,
     },
+    {
+      id: 5,
+      username: "diogo",
+      name: "Diogo",
+      email: "ddasdasd@lasjkdfhadsfa.com",
+      spent: 2500,
+      password: "$2b$12$OW2wU7knFHkC094p0SyzoOEpgsB8Z7g4tTR07UQAIDhiEpi2Bp6By",
+    },
   ],
   products: [
     {

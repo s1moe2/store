@@ -57,7 +57,7 @@ router.post("/signin", signinValidation, async (req, res) => {
 
   const token = jwt.sign({ userId: user.id }, config.JWT_SECRET);
 
-  res.cookie("token", token).status(200).json({});
+  res.status(200).json({ token });
 });
 
 module.exports = router;
