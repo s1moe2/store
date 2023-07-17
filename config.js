@@ -1,6 +1,6 @@
 require("dotenv").config();
 
-const PORT = process.env.API_PORT;
+const PORT = process.env.API_PORT ?? 3000;
 
 const ORDER_STATUSES = process.env.ORDER_STATUSES ? process.env.ORDER_STATUSES.split(",") : [];
 

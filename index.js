@@ -12,7 +12,7 @@ app.use(logger);
 
 app.use("/auth", authRoutes);
 
-app.use(auth);
+// app.use(auth);
 
 app.use("/products", products);
 app.use("/users", users);
