@@ -1,7 +1,7 @@
 import express from "express";
 import * as db from "../db";
 import { body, validationResult } from "express-validator";
-import { Request, Response } from "express-serve-static-core";
+import { Request, Response } from "express";
 
 export const router = express.Router();
 
