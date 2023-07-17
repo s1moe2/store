@@ -1,0 +1,36 @@
+/** @see - https://www.typescriptlang.org/tsconfig */
+{
+  "include": ["src/**/*.ts", "src/**/*.js"],
+  "compilerOptions": {
+
+    // project options
+    "target": "ES2022",
+    "lib": ["ES2022"],
+    "module": "CommonJS",
+    "incremental": true,
+    "sourceMap": true,
+    "noEmitOnError": true,
+
+    "allowJs": true,
+
+    // checks
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+
+    // module resolution
+    "importHelpers": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+
+
+    // local
+    // only compile files inside `src/`
+    // compile `src/**/foo.ts` to `out/build/**/foo.js`, without the `src/` directory
+    // generate temporary .tsbuildinfo file directly into `out/`
+
+    "rootDir": "src",
+    "outDir": "out/build",
+    "tsBuildInfoFile": "out/.tsbuildinfo",
+    "typeRoots" : ["./node_modules/@types", "./src/typings"]
+  },
+}
