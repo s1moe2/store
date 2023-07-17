@@ -1,10 +1,10 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import express, { Request } from "express";
+import express, { Request, Response } from "express";
 import * as db from "../db";
 import * as config from "../config";
 import { body, validationResult } from "express-validator";
-import { Response } from "express-serve-static-core";
+
 
 export const router = express.Router();
 
