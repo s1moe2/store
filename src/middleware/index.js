@@ -1,21 +1,22 @@
-const config = require("../config");
-const jwt = require("jsonwebtoken");
-const pino = require("pino-http");
-
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.logger = void 0;
+var jwt = require("jsonwebtoken");
+var pino_http_1 = require("pino-http");
+var config_1 = require("../config");
 function auth(req, res, next) {
-  const token = req.headers["authorization"];
-  if (!token) return res.status(401).json({ error: "unauthorized" });
-
-  try {
-    jwt.verify(token.split(" ")[1], config.JWT_SECRET);
-  } catch (error) {
-    return res.status(401).json({ error: "unauthorized" });
-  }
-
-  next();
+    var token = req.headers["authorization"];
+    if (!token)
+        return res.status(401).json({ error: "unauthorized" });
+    try {
+        jwt.verify(token.split(" ")[1], config_1.JWT_SECRET);
+    }
+    catch (error) {
+        return res.status(401).json({ error: "unauthorized" });
+    }
+    next();
 }
-
-module.exports = {
-  logger: pino(),
-  auth,
+exports.logger = {
+    logger: (0, pino_http_1.default)(),
+    auth: auth,
 };
