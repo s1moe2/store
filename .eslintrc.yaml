@@ -16,4 +16,9 @@ parserOptions:
   ecmaVersion: 'latest'
   project: 
     - 'tsconfig.json'
-rules: {}
+rules:
+  # allow unused variables and parameters that start with '_'
+  '@typescript-eslint/no-unused-vars':
+    - 'error'
+    - 'varsIgnorePattern': '^_'
+      'argsIgnorePattern': '^_'
