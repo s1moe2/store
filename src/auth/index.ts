@@ -6,7 +6,8 @@ import * as config from "../config";
 import { body, validationResult } from "express-validator";
 
 
-export const router = express.Router();
+const router = express.Router();
+export default router;
 
 const signupValidation = [
   body("username").notEmpty().exists(),
@@ -61,5 +62,3 @@ router.post("/signin", signinValidation, async (req: Request, res: Response) => 
 
   res.status(200).json({ token });
 });
-
-

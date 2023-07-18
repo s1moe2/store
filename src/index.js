@@ -4,7 +4,7 @@ const { logger, auth } = require("./middleware");
 const users = require("./users");
 const products = require("./products");
 const orders = require("./orders");
-const authRoutes = require("./auth");
+const authRoutes = require("./auth").default;
 const config = require("./config");
 
 app.use(express.json());
