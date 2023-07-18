@@ -10,7 +10,8 @@
     "start:w": "ts-node-dev src/index.ts",
     "build": "tsc",
     "build:w": "tsc --watch --noEmit",
-    "lint": "eslint --ext .js ./src",
+    "lint": "eslint src --cache --cache-location out/.eslintcache",
+    "lint:w": "nodemon --watch src --ext ts,ts --delay 10ms --exec 'npm run lint'",
     "fmt": "prettier --write ./src"
   },
   "keywords": [],
@@ -30,6 +31,8 @@
     "@types/express": "^4.17.17",
     "@types/jsonwebtoken": "^9.0.2",
     "@types/node": "^18.16.19",
+    "@typescript-eslint/eslint-plugin": "^6.1.0",
+    "@typescript-eslint/parser": "^6.1.0",
     "eslint": "^8.44.0",
     "eslint-config-prettier": "^8.8.0",
     "nodemon": "^2.0.22",

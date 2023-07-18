@@ -2,9 +2,18 @@ env:
   commonjs: true
   es2021: true
   node: true
+parser: '@typescript-eslint/parser'
 extends:
-  - eslint:recommended
-  - prettier
+  - 'eslint:recommended'
+  - 'prettier'
+  - 'plugin:@typescript-eslint/eslint-recommended'
+  - 'plugin:@typescript-eslint/recommended'
+  - 'plugin:@typescript-eslint/recommended-type-checked'
+root: true
+plugins:
+  - '@typescript-eslint'
 parserOptions:
-  ecmaVersion: latest
+  ecmaVersion: 'latest'
+  project: 
+    - 'tsconfig.json'
 rules: {}
