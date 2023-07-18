@@ -4,6 +4,8 @@
   "description": "",
   "main": "out/build/index.js",
   "scripts": {
+    "clean": "rimraf out",
+    "clean:all": "rimraf out node_modules",
     "start": "node out/build/index.js",
     "start:w": "ts-node-dev src/index.ts",
     "build": "tsc",
@@ -32,6 +34,7 @@
     "eslint-config-prettier": "^8.8.0",
     "nodemon": "^2.0.22",
     "prettier": "^3.0.0",
+    "rimraf": "^5.0.1",
     "ts-node-dev": "^2.0.0",
     "tslib": "^2.6.0"
   }
