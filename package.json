@@ -5,9 +5,9 @@
   "main": "out/build/index.js",
   "scripts": {
     "start": "node out/build/index.js",
-    "dev": "nodemon out/build/index.js",
+    "start:w": "ts-node-dev src/index.ts",
     "build": "tsc",
-    "check": "tsc --watch --noEmit",
+    "build:w": "tsc --watch --noEmit",
     "lint": "eslint --ext .js ./src",
     "fmt": "prettier --write ./src"
   },
@@ -32,6 +32,7 @@
     "eslint-config-prettier": "^8.8.0",
     "nodemon": "^2.0.22",
     "prettier": "^3.0.0",
+    "ts-node-dev": "^2.0.0",
     "tslib": "^2.6.0"
   }
 }
