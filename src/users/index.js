@@ -10,14 +10,14 @@ const validation = [
 ];
 
 router.get("/", (req, res) => {
-  const users = users.map((user) => {
+  const u = users.map((user) => {
     return {
       id: user.id,
       name: user.name,
       email: user.email,
     };
   });
-  res.status(200).json(users);
+  res.status(200).json(u);
 });
 
 router.get("/:id", (req, res) => {
