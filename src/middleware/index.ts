@@ -3,7 +3,8 @@ import * as jwt from "jsonwebtoken";
 import {Secret} from "jsonwebtoken";
 import pino from "pino-http";
 import { JWT_SECRET } from "../config";
-function auth(req: Request, res: Response, next: NextFunction) {
+
+export function auth(req: Request, res: Response, next: NextFunction) {
   const token = req.headers["authorization"];
   if (!token) return res.status(401).json({ error: "unauthorized" });
   try {
@@ -13,7 +14,5 @@ function auth(req: Request, res: Response, next: NextFunction) {
   }
   next();
 }
-export let logger = {
-  logger: pino(),
-  auth,
-};
+
+export const logger = pino();
