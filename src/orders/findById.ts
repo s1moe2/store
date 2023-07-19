@@ -1,7 +1,7 @@
 const { orders } = require("../db");
 
 export function findById(id: String) {
-  return orders.findIndex((order) => order.id === id);
+  return orders.findIndex((order: Order) => order.id === id);
 }
 
 export function displayStatus(orderId: number) {

@@ -1,9 +1,9 @@
 interface User {
   id: number;
-  username: String;
-  name: String;
-  email: String;
+  username: string;
+  name: string;
+  email: string;
   spent: number;
-  password: String;
-  rewardPoints: number | undefined;
+  password: string;
+  rewardPoints: number;
 }
