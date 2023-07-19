@@ -15,7 +15,7 @@ const signupValidation = [
   body("password").notEmpty().exists().isLength({ min: 3 }),
 ];
 
-router.post("/signup", signupValidation, async (req: Request, res: Response) => {
+router.post("/signup", signupValidation, async (req: Request, res: Response): Promise<void | Response> => {
   const validationRes = validationResult(req);
   if (!validationRes.isEmpty()) {
     return res.status(400).json({ error: validationRes.array() });

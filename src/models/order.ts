@@ -1,4 +1,6 @@
-interface Order {
+import { Product } from "./product";
+
+export interface Order {
   id: string;
   userId: number;
   products: Array<Product>;

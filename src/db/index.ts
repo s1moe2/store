@@ -1,3 +1,7 @@
+import { Order } from "../models/order";
+import { Product } from "../models/product";
+import { User } from "../models/user";
+
 export const orders: Array<Order> = [
   {
     id: "1",

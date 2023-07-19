@@ -1,4 +1,5 @@
 import { orders } from "../db";
+import { Order } from "../models/order";
 
 export function findById(id: string) {
   return orders.findIndex((order: Order) => order.id === id);

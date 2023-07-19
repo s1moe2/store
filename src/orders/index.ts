@@ -5,6 +5,7 @@ import { orders, users } from "../db";
 import { rewardPoints } from "./reward-points";
 import { Request, Response } from "express-serve-static-core";
 import * as config from "../config";
+import { Order } from "../models/order";
 
 const router = express.Router();
 export default router;

@@ -1,5 +1,5 @@
 import express, { NextFunction, Request, Response } from "express";
-import { logger, auth } from "./middleware";
+import { logger, auth as _auth } from "./middleware";
 import users from "./users";
 import products from "./products";
 import orders from "./orders";

@@ -10,8 +10,9 @@ const validation = [
   body("name").isString().notEmpty().exists(),
   body("email").isEmail().notEmpty().exists(),
 ];
+interface MyBody {name: string, email: string}
 
-router.get("/", (req: Request, res: Response) => {
+router.get("/", (_req: Request, res: Response) => {
   const users = db.users.map((user) => {
     return {
       id: user.id,
@@ -19,7 +20,7 @@ router.get("/", (req: Request, res: Response) => {
       email: user.email,
     };
   });
-  res.status(200).json(users);
+  res.status(200).json( users);
 });
 
 router.get("/:id", (req: Request, res: Response) => {
