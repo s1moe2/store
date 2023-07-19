@@ -1,9 +1,9 @@
 interface Order {
-  id: String;
+  id: string;
   userId: number;
   products: Array<Product>;
   price: number;
   orderedAt: Date;
-  status: String;
+  status: string;
   rewardPoints: number;
 }
