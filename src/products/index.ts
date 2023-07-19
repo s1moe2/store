@@ -1,7 +1,15 @@
-const express = require("express");
+import express, { Request, Response } from "express";
+import { products, orders } from "../db";
+import { body, validationResult } from "express-validator";
+
+interface TopProducts {
+  id: number;
+  name: string;
+  count: number;
+}
+
 const router = express.Router();
-const { products, orders } = require("../db");
-const { body, validationResult } = require("express-validator");
+export default router
 
 const validation = [
   body("name").isString().exists().notEmpty(),
@@ -10,7 +18,7 @@ const validation = [
   body("image").isString().exists().notEmpty(),
 ];
 
-router.get("/", (req, res) => {
+router.get("/", (req: Request, res: Response) => {
   const prods = products;
   if (req.query.cat) {
     prods.filter((p) => p.category === req.query.cat);
@@ -19,7 +27,7 @@ router.get("/", (req, res) => {
   res.status(200).json(prods);
 });
 
-router.put("/:id", (req, res) => {
+router.put("/:id", (req: Request, res: Response) => {
   const indexProduct = products.findIndex((product) => product.id === parseInt(req.params.id));
 
   if (indexProduct === -1) return res.status(404).json({ error: "product not found" });
@@ -32,13 +40,13 @@ router.put("/:id", (req, res) => {
   res.status(200).json(products[indexProduct]);
 });
 
-router.get("/:id", (req, res) => {
-  const products = products.find((product) => product.id === parseInt(req.params.id));
-  res.status(200).json(products);
+router.get("/:id", (req: Request, res: Response) => {
+  const selectProducts = products.find((product) => product.id === parseInt(req.params.id));
+  res.status(200).json(selectProducts);
 });
 
-router.get("/bestsellers", (req, res) => {
-  const bestsellers = [];
+router.get("/bestsellers", (req: Request, res: Response) => {
+  const bestsellers: TopProducts[] = [];
 
   orders.forEach((order) => {
     order.products.forEach((product) => {
@@ -54,7 +62,8 @@ router.get("/bestsellers", (req, res) => {
     });
   });
 
-  const { top } = req.query;
+  const topString = String(req.query["top"]);
+  const top: number = parseInt(topString, 10);
 
   if (top <= 0 || isNaN(top)) {
     return res.status(400).json({ error: "invalid value" });
@@ -64,7 +73,7 @@ router.get("/bestsellers", (req, res) => {
   return res.status(200).json(topProducts);
 });
 
-router.delete("/:id", (req, res) => {
+router.delete("/:id", (req: Request, res: Response) => {
   const productIx = products.findIndex((u) => u.id === parseInt(req.params.id));
   if (productIx === -1) {
     return res.status(404).json({ error: "product not found " });
@@ -74,7 +83,7 @@ router.delete("/:id", (req, res) => {
   res.status(200).json({ message: "Product removed successfully." });
 });
 
-router.post("/", validation, (req, res) => {
+router.post("/", validation, (req: Request, res: Response) => {
   const validationProduct = validationResult(req);
   if (!validationProduct.isEmpty()) {
     return res.status(400).json({ error: validationProduct.array() });
