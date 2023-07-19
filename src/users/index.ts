@@ -34,7 +34,7 @@ router.get("/:id/orders", (req: Request, res: Response) => {
   const user = db.users.find((u) => u.id === userId);
   if (!user) return res.status(404).json({ error: "user not found" });
 
-  const userOrders = db.orders.filter((order) => order.userID === userId);
+  const userOrders = db.orders.filter((order) => order.userId === userId);
 
   return res.status(200).json(userOrders);
 });

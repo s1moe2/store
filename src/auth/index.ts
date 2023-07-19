@@ -5,7 +5,6 @@ import * as db from "../db";
 import * as config from "../config";
 import { body, validationResult } from "express-validator";
 
-
 const router = express.Router();
 export default router;
 
@@ -34,6 +33,7 @@ router.post("/signup", signupValidation, async (req: Request, res: Response) => 
     email: req.body.email,
     spent: 0,
     password: hash,
+    rewardPoints: 0,
   };
 
   db.users.push(newUser);

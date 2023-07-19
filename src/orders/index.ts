@@ -1,23 +1,26 @@
-const express = require("express");
+import express from "express";
+import { findById, displayStatus, updateStatus } from "./findById";
+import { param, body, validationResult } from "express-validator";
+import { orders, users } from "../db";
+import { rewardPoints } from "./reward-points";
+import { Request, Response } from "express-serve-static-core";
+import * as config from "../config";
+
 const router = express.Router();
-const { findById, displayStatus, updateStatus } = require("./findById");
-const { param, body, validationResult } = require("express-validator");
-const { orders, users } = require("../db");
-const { rewardPoints } = require("./reward-points");
-const config = require("../config");
+export default router;
 
 const validation = [
   param("id").isInt().exists(),
   body("status").notEmpty().exists().contains(config.ORDER_STATUSES),
 ];
 
-router.put("/:id", validation, (req, res) => {
+router.put("/:id", validation, (req: Request, res: Response) => {
   const validationRes = validationResult(req);
   if (!validationRes.isEmpty()) {
     return res.status(404).json({ error: validationRes.array() });
   }
 
-  const orderIx = findById(parseInt(req.params.id));
+  const orderIx = findById(req.params.id);
   //order exists
   if (orderIx === -1) {
     return res.status(404).json({ error: "Invalid Value" });
@@ -30,23 +33,23 @@ router.put("/:id", validation, (req, res) => {
   res.status(200).json({ previousStatus, newStatus: displayStatus(orderIx) });
 });
 
-router.post("/", (req, res) => {
+router.post("/", (req: Request, res: Response) => {
   const { userId, products } = req.body;
 
   const status = "placed"; // Assuming "placed" is a valid status
 
-  const userIx = users.findIndex((u) => u.id === parseInt(order.userId));
+  const userIx = users.findIndex((u) => u.id === parseInt(order.userId.toString()));
   if (userIx === -1) return res.status(404).json({ error: "user not found" });
 
   const finalPrice = calculateTotalPrice(products);
 
   // criar o objeto order
-  const order = {
+  const order: Order = {
     id: generateOrderId(),
     userId,
     products,
     price: finalPrice,
-    dateTime: new Date(),
+    orderedAt: new Date(),
     status,
     rewardPoints: rewardPoints(finalPrice),
   };
@@ -66,12 +69,12 @@ router.post("/", (req, res) => {
 });
 
 // funcao calcular total produto
-function calculateTotalPrice(products) {
+function calculateTotalPrice(products: any): number {
   let totalPrice = 0;
   for (let i = 0; i < products.length; i++) {
     totalPrice += products[i].price;
   }
-  return totalPrice.toFixed(2);
+  return totalPrice;
 }
 
 // Gerar um id aleatorio
@@ -83,5 +86,3 @@ function generateOrderId() {
   }
   return orderId;
 }
-
-module.exports = router;
