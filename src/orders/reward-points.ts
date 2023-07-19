@@ -1,4 +1,4 @@
-function rewardPoints(price) {
+export function rewardPoints(price: number) {
   let points = 0;
 
   if (price > 100) {
@@ -8,7 +8,3 @@ function rewardPoints(price) {
   }
   return points;
 }
-
-module.exports = {
-  rewardPoints,
-};
