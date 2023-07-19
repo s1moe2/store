@@ -8,7 +8,8 @@ interface TopProducts {
   count: number;
 }
 
-export const router = express.Router();
+const router = express.Router();
+export default router
 
 const validation = [
   body("name").isString().exists().notEmpty(),
