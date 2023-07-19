@@ -3,7 +3,8 @@ import * as db from "../db";
 import { body, validationResult } from "express-validator";
 import { Request, Response } from "express";
 
-export const router = express.Router();
+const router = express.Router();
+export default router
 
 const validation = [
   body("name").isString().notEmpty().exists(),
