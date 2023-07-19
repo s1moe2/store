@@ -1,7 +1,7 @@
-export const orders = [
+export const orders: Array<Order> = [
   {
-    id: 1,
-    userID: 1,
+    id: "1",
+    userId: 1,
     products: [
       {
         id: 1,
@@ -15,9 +15,11 @@ export const orders = [
     price: 3000,
     orderedAt: new Date(2023, 0, 1, 10, 0, 0),
     status: "delivered",
+    rewardPoints: 30,
   },
   {
-    userID: 2,
+    id: "2",
+    userId: 2,
     products: [
       {
         id: 3,
@@ -36,9 +38,12 @@ export const orders = [
     ],
     price: 1350,
     orderedAt: new Date(2023, 1, 15, 15, 30, 0),
+    status: "delivered",
+    rewardPoints: 14,
   },
   {
-    userID: 3,
+    id: "3",
+    userId: 3,
     products: [
       {
         id: 4,
@@ -57,9 +62,12 @@ export const orders = [
     ],
     price: 1520,
     orderedAt: new Date(2023, 2, 20, 9, 45, 0),
+    status: "delivered",
+    rewardPoints: 16,
   },
   {
-    userID: 4,
+    id: "4",
+    userId: 4,
     products: [
       {
         id: 6,
@@ -71,9 +79,12 @@ export const orders = [
     ],
     price: 350,
     orderedAt: new Date(2023, 3, 5, 14, 20, 0),
+    status: "delivered",
+    rewardPoints: 4,
   },
   {
-    userID: 1,
+    id: "5",
+    userId: 1,
     products: [
       {
         id: 2,
@@ -93,9 +104,12 @@ export const orders = [
     ],
     price: 3040,
     orderedAt: new Date(2023, 3, 30, 11, 10, 0),
+    status: "delivered",
+    rewardPoints: 30,
   },
   {
-    userID: 3,
+    id: "6",
+    userId: 3,
     products: [
       {
         id: 3,
@@ -107,9 +121,12 @@ export const orders = [
     ],
     price: 1200,
     orderedAt: new Date(2023, 4, 15, 16, 40, 0),
+    status: "delivered",
+    rewardPoints: 12,
   },
   {
-    userID: 2,
+    id: "7",
+    userId: 2,
     products: [
       {
         id: 4,
@@ -128,9 +145,12 @@ export const orders = [
     ],
     price: 1850,
     orderedAt: new Date(2023, 5, 12, 13, 15, 0),
+    status: "delivered",
+    rewardPoints: 19,
   },
   {
-    userID: 4,
+    id: "8",
+    userId: 4,
     products: [
       {
         id: 1,
@@ -150,9 +170,12 @@ export const orders = [
     ],
     price: 3150,
     orderedAt: new Date(2023, 6, 1, 9, 55, 0),
+    status: "delivered",
+    rewardPoints: 32,
   },
   {
-    userID: 1,
+    id: "9",
+    userId: 1,
     products: [
       {
         id: 7,
@@ -171,9 +194,12 @@ export const orders = [
     ],
     price: 60,
     orderedAt: new Date(2023, 6, 10, 18, 20, 0),
+    status: "delivered",
+    rewardPoints: 1,
   },
   {
-    userID: 3,
+    id: "10",
+    userId: 3,
     products: [
       {
         id: 3,
@@ -185,9 +211,12 @@ export const orders = [
     ],
     price: 1200,
     orderedAt: new Date(2023, 7, 2, 10, 30, 0),
+    status: "delivered",
+    rewardPoints: 12,
   },
   {
-    userID: 2,
+    id: "11",
+    userId: 2,
     products: [
       {
         id: 5,
@@ -206,49 +235,12 @@ export const orders = [
     ],
     price: 170,
     orderedAt: new Date(2023, 7, 22, 14, 45, 0),
+    status: "delivered",
+    rewardPoints: 2,
   },
 ];
 
-export const users = [
-  {
-    id: 1,
-    username: "bill",
-    name: "Bill Gates",
-    email: "bg@ms.x",
-    spent: 3000,
-  },
-  {
-    id: 2,
-    username: "elon",
-    name: "Elon Musk",
-    email: "elon@tesla.com",
-    spent: 5000,
-  },
-  {
-    id: 3,
-    username: "jeff",
-    name: "Jeff Bezos",
-    email: "jeff@amazon.com",
-    spent: 8000,
-  },
-  {
-    id: 4,
-    username: "mark",
-    name: "Mark Zuckerberg",
-    email: "mark@facebook.com",
-    spent: 2500,
-  },
-  {
-    id: 5,
-    username: "diogo",
-    name: "Diogo",
-    email: "ddasdasd@lasjkdfhadsfa.com",
-    spent: 2500,
-    password: "$2b$12$OW2wU7knFHkC094p0SyzoOEpgsB8Z7g4tTR07UQAIDhiEpi2Bp6By",
-  },
-];
-
-export const products = [
+export const products: Array<Product> = [
   {
     id: 1,
     name: "Macbook Pro",
@@ -306,5 +298,53 @@ export const products = [
     category: "fitness",
     price: 40,
     image: "https://lorem.ipsum/yoga-mat.jpg",
+  },
+];
+
+export const users: Array<User> = [
+  {
+    id: 1,
+    username: "bill",
+    name: "Bill Gates",
+    email: "bg@ms.x",
+    spent: 3000,
+    password: "fasfasdfasdfasdf",
+    rewardPoints: 30,
+  },
+  {
+    id: 2,
+    username: "elon",
+    name: "Elon Musk",
+    email: "elon@tesla.com",
+    spent: 5000,
+    password: "fasfasdfasdfasdf",
+    rewardPoints: 10,
+  },
+  {
+    id: 3,
+    username: "jeff",
+    name: "Jeff Bezos",
+    email: "jeff@amazon.com",
+    spent: 8000,
+    password: "fasfasdfasdfasdf",
+    rewardPoints: 4,
+  },
+  {
+    id: 4,
+    username: "mark",
+    name: "Mark Zuckerberg",
+    email: "mark@facebook.com",
+    spent: 2500,
+    password: "fasfasdfasdfasdf",
+    rewardPoints: 8,
+  },
+  {
+    id: 5,
+    username: "diogo",
+    name: "Diogo",
+    email: "ddasdasd@lasjkdfhadsfa.com",
+    spent: 2500,
+    password: "$2b$12$OW2wU7knFHkC094p0SyzoOEpgsB8Z7g4tTR07UQAIDhiEpi2Bp6By",
+    rewardPoints: 11,
   },
 ];
