@@ -4,9 +4,10 @@ import { param, body, validationResult } from "express-validator";
 import { orders, users } from "../db";
 import { rewardPoints } from "./reward-points";
 import { Request, Response } from "express-serve-static-core";
-import config from "../config";
+import * as config from "../config";
 
 const router = express.Router();
+export default router;
 
 const validation = [
   param("id").isInt().exists(),
@@ -85,5 +86,3 @@ function generateOrderId() {
   }
   return orderId;
 }
-
-module.exports = router;
