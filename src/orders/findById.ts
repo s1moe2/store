@@ -1,19 +1,13 @@
 const { orders } = require("../db");
 
-function findById(id) {
+export function findById(id: String) {
   return orders.findIndex((order) => order.id === id);
 }
 
-function displayStatus(orderId) {
+export function displayStatus(orderId: number) {
   return orders[orderId].status;
 }
 
-function updateStatus(ix, newStatus) {
+export function updateStatus(ix: number, newStatus: String) {
   orders[ix].status = newStatus;
 }
-
-module.exports = {
-  findById,
-  displayStatus,
-  updateStatus,
-};
