@@ -12,7 +12,7 @@ export default router;
 
 const validation = [
   param("id").isInt().exists(),
-  body("status").notEmpty().exists().contains(config.ORDER_STATUSES),
+  body("status").notEmpty().exists().contains(["delivered"]),
 ];
 
 router.put("/:id", validation, (req: Request, res: Response) => {
