@@ -31,6 +31,8 @@
     "rootDir": "src",
     "outDir": "out/build",
     "tsBuildInfoFile": "out/.tsbuildinfo",
-    "typeRoots" : ["./node_modules/@types", "./src/typings"]
+    "typeRoots" : ["./node_modules/@types", "./src/typings"],
+    "types": ["jest", "node"]
   },
 }
+
