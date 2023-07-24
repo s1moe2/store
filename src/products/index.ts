@@ -11,13 +11,6 @@ interface TopProducts {
 const router = express.Router();
 export default router
 
-const validation = [
-  body("name").isString().exists().notEmpty(),
-  body("category").isString().exists().notEmpty(),
-  body("price").isNumeric().exists(),
-  body("image").isString().exists().notEmpty(),
-];
-
 router.get("/", (req: Request, res: Response) => {
   const prods = products;
   if (req.query.cat) {
@@ -27,7 +20,20 @@ router.get("/", (req: Request, res: Response) => {
   res.status(200).json(prods);
 });
 
-router.put("/:id", (req: Request, res: Response) => {
+
+const validationPost = [
+  body("name").isString().exists().notEmpty(),
+  body("category").isString().exists().notEmpty(),
+  body("price").isNumeric().exists(),
+  body("image").isString().exists().notEmpty(),
+];
+type RequestPost = Request<{}, unknown, {name: string, category: string, price: number, image: string}>;
+
+const validationPut = validationPost;
+type RequestPut = Request<{id: string}, unknown, {name: string, category: string, price: number, image: string}>;
+
+
+router.put("/:id", validationPut, (req: RequestPut, res: Response) => {
   const indexProduct = products.findIndex((product) => product.id === parseInt(req.params.id));
 
   if (indexProduct === -1) return res.status(404).json({ error: "product not found" });
@@ -40,10 +46,12 @@ router.put("/:id", (req: Request, res: Response) => {
   res.status(200).json(products[indexProduct]);
 });
 
+
 router.get("/:id", (req: Request, res: Response) => {
   const selectProducts = products.find((product) => product.id === parseInt(req.params.id));
   res.status(200).json(selectProducts);
 });
+
 
 router.get("/bestsellers", (req: Request, res: Response) => {
   const bestsellers: TopProducts[] = [];
@@ -73,6 +81,7 @@ router.get("/bestsellers", (req: Request, res: Response) => {
   return res.status(200).json(topProducts);
 });
 
+
 router.delete("/:id", (req: Request, res: Response) => {
   const productIx = products.findIndex((u) => u.id === parseInt(req.params.id));
   if (productIx === -1) {
@@ -83,7 +92,8 @@ router.delete("/:id", (req: Request, res: Response) => {
   res.status(200).json({ message: "Product removed successfully." });
 });
 
-router.post("/", validation, (req: Request, res: Response) => {
+
+router.post("/", validationPost, (req: RequestPost, res: Response) => {
   const validationProduct = validationResult(req);
   if (!validationProduct.isEmpty()) {
     return res.status(400).json({ error: validationProduct.array() });
@@ -92,7 +102,7 @@ router.post("/", validation, (req: Request, res: Response) => {
   const product = req.body;
 
   const newProduct = {
-    id: product.length + 1,
+    id: products.length + 1, // BUG
     name: product.name,
     category: product.category,
     price: product.price,

@@ -1,21 +1,22 @@
 import express from "express";
-import { findById, displayStatus, updateStatus } from "./findById";
-import { param, body, validationResult } from "express-validator";
-import { orders, users } from "../db";
-import { rewardPoints } from "./reward-points";
 import { Request, Response } from "express-serve-static-core";
-import * as config from "../config";
+import { body, param, validationResult } from "express-validator";
+import { orders, users } from "../db";
 import { Order } from "../models/order";
+import { displayStatus, findById, updateStatus } from "./findById";
+import { rewardPoints } from "./reward-points";
+import { Product } from "../models/product";
 
 const router = express.Router();
 export default router;
 
-const validation = [
+const validationGetById = [
   param("id").isInt().exists(),
   body("status").notEmpty().exists().contains(["delivered"]),
 ];
+type RequestGetById = Request<{id: string}, unknown, {id: string, status: string}>;
 
-router.put("/:id", validation, (req: Request, res: Response) => {
+router.put("/:id", validationGetById, (req: RequestGetById, res: Response) => {
   const validationRes = validationResult(req);
   if (!validationRes.isEmpty()) {
     return res.status(404).json({ error: validationRes.array() });
@@ -34,7 +35,13 @@ router.put("/:id", validation, (req: Request, res: Response) => {
   res.status(200).json({ previousStatus, newStatus: displayStatus(orderIx) });
 });
 
-router.post("/", (req: Request, res: Response) => {
+const validationPost = [
+  param("userId").isInt().exists(),
+  body("products").isArray(),
+];
+type RequestPost = Request<{}, unknown, {userId: number, products: Product[]}>;
+
+router.post("/", validationPost, (req: RequestPost, res: Response) => {
   const { userId, products } = req.body;
 
   const status = "placed"; // Assuming "placed" is a valid status
@@ -70,7 +77,7 @@ router.post("/", (req: Request, res: Response) => {
 });
 
 // funcao calcular total produto
-function calculateTotalPrice(products: any): number {
+function calculateTotalPrice(products: Product[]): number {
   let totalPrice = 0;
   for (let i = 0; i < products.length; i++) {
     totalPrice += products[i].price;

@@ -6,11 +6,6 @@ import { Request, Response } from "express";
 const router = express.Router();
 export default router
 
-const validation = [
-  body("name").isString().notEmpty().exists(),
-  body("email").isEmail().notEmpty().exists(),
-];
-interface MyBody {name: string, email: string}
 
 router.get("/", (_req: Request, res: Response) => {
   const users = db.users.map((user) => {
@@ -23,11 +18,13 @@ router.get("/", (_req: Request, res: Response) => {
   res.status(200).json( users);
 });
 
+
 router.get("/:id", (req: Request, res: Response) => {
   const user = db.users.find((u) => u.id === parseInt(req.params.id));
   if (!user) return res.status(404).json({ error: "user not found" });
   res.status(200).json(user);
 });
+
 
 router.get("/:id/orders", (req: Request, res: Response) => {
   const userId = parseInt(req.params.id);
@@ -40,7 +37,14 @@ router.get("/:id/orders", (req: Request, res: Response) => {
   return res.status(200).json(userOrders);
 });
 
-router.put("/:id", validation, (req: Request, res: Response) => {
+
+const validationPut = [
+  body("name").isString().notEmpty().exists(),
+  body("email").isEmail().notEmpty().exists(),
+];
+type RequestPut = Request<{id: string}, unknown, {name: string, email: string}>;
+
+router.put("/:id", validationPut, (req: RequestPut, res: Response) => {
   const validationRes = validationResult(req);
   if (!validationRes.isEmpty()) {
     return res.status(400).json({ errors: validationRes.array() });

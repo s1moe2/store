@@ -14,8 +14,9 @@ const signupValidation = [
   body("name").notEmpty().exists(),
   body("password").notEmpty().exists().isLength({ min: 3 }),
 ];
+type RequestSignup = Request<{id: string}, unknown, {username: string, email: string, name: string, password: string}>;
 
-router.post("/signup", signupValidation, async (req: Request, res: Response): Promise<void | Response> => {
+router.post("/signup", signupValidation, async (req: RequestSignup, res: Response) => {
   const validationRes = validationResult(req);
   if (!validationRes.isEmpty()) {
     return res.status(400).json({ error: validationRes.array() });
@@ -45,8 +46,10 @@ const signinValidation = [
   body("username").notEmpty().exists(),
   body("password").notEmpty().exists(),
 ];
+type RequestSignin = Request<{}, unknown, {username: string, password: string}>;
 
-router.post("/signin", signinValidation, async (req: Request, res: Response) => {
+
+router.post("/signin", signinValidation, async (req: RequestSignin, res: Response) => {
   const validationRes = validationResult(req);
   if (!validationRes.isEmpty()) {
     return res.status(400).json({ error: validationRes.array() });
