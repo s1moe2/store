@@ -22,3 +22,5 @@ rules:
     - 'error'
     - 'varsIgnorePattern': '^_'
       'argsIgnorePattern': '^_'
+  '@typescript-eslint/ban-types':
+    - 'off'
