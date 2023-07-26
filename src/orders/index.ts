@@ -1,7 +1,7 @@
 import express from "express";
 import { Request, Response } from "express-serve-static-core";
 import { body, param, validationResult } from "express-validator";
-import { orders, users } from "../db";
+import db, { orders } from "../db";
 import { Order } from "../models/order";
 import { displayStatus, findById, updateStatus } from "./findById";
 import { rewardPoints } from "./reward-points";
@@ -46,7 +46,7 @@ router.post("/", validationPost, (req: RequestPost, res: Response) => {
 
   const status = "placed"; // Assuming "placed" is a valid status
 
-  const userIx = users.findIndex((u) => u.id === parseInt(order.userId.toString()));
+  const userIx = db.users.findIndex((u) => u.id === parseInt(order.userId.toString()));
   if (userIx === -1) return res.status(404).json({ error: "user not found" });
 
   const finalPrice = calculateTotalPrice(products);
@@ -65,15 +65,15 @@ router.post("/", validationPost, (req: RequestPost, res: Response) => {
   orders.push(order);
 
   // update user reward pts
-  const user = users[userIx];
+  const user = db.users[userIx];
   if (!user.rewardPoints) {
-    users[userIx].rewardPoints = 0;
+    db.users[userIx].rewardPoints = 0;
   }
 
-  users[userIx].rewardPoints = user.rewardPoints + order.rewardPoints;
+  db.users[userIx].rewardPoints = user.rewardPoints + order.rewardPoints;
 
   // enviar resposta
-  res.status(200).json({ order, users });
+  res.status(200).json({ order, users: db.users });
 });
 
 // funcao calcular total produto

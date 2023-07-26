@@ -1,8 +1,8 @@
 import { Order } from "../models/order";
 import { Product } from "../models/product";
-import { User } from "../models/user";
+import { User } from "../users";
 
-export const orders: Array<Order> = [
+export let orders: Array<Order> = [
   {
     id: "1",
     userId: 1,
@@ -244,7 +244,7 @@ export const orders: Array<Order> = [
   },
 ];
 
-export const products: Array<Product> = [
+export let products: Array<Product> = [
   {
     id: 1,
     name: "Macbook Pro",
@@ -305,7 +305,7 @@ export const products: Array<Product> = [
   },
 ];
 
-export const users: Array<User> = [
+let users: Array<User> = [
   {
     id: 1,
     username: "bill",
@@ -352,3 +352,7 @@ export const users: Array<User> = [
     rewardPoints: 11,
   },
 ];
+
+export default {
+  users
+}
