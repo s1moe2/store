@@ -39,13 +39,12 @@ export const create = async (username: string, email: string, name: string, pass
 
 
 export const update = (id: string, name: string, email: string) => {
-  const userIx = db.users.findIndex((u) => u.id === parseInt(id));
+  const user = getById(id);
 
-  if (userIx === -1) {
+  if (!user) {
     return undefined
   }
 
-  const user = db.users[userIx]
   user.name = name;
   user.email = email;
 
@@ -58,3 +57,13 @@ export const remove = (id: string) => {
   db.users = newUsers;
 }
 
+
+export const addRewardPoints = (id: number, rewardPoints: number) => {
+  const user = getById(id.toString());
+
+  if(!user) {
+    throw new Error(`User ID ${id} does not exist`);
+  }
+
+  user.rewardPoints += rewardPoints;
+}
