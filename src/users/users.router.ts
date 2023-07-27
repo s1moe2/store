@@ -22,27 +22,6 @@ router.get("/:id", (req: Request, res: Response) => {
 });
 
 
-const validationPut = [
-  body("name").isString().notEmpty().exists(),
-  body("email").isEmail().notEmpty().exists(),
-];
-type RequestPut = Request<{id: string}, unknown, {name: string, email: string}>;
-
-router.put("/:id", validationPut, (req: RequestPut, res: Response) => {
-  const validationRes = validationResult(req);
-  if (!validationRes.isEmpty()) {
-    return res.status(400).json({ errors: validationRes.array() });
-  }
-
-  const user = update(req.params.id, req.body.name, req.body.email);
-  if (!user) {
-    return res.status(404).json({ error: "user not found" });
-  }
-
-  res.status(200).json(user);
-});
-
-
 const validationPost = [
   body("username").notEmpty().exists(),
   body("email").notEmpty().isEmail().exists(),
@@ -63,6 +42,27 @@ router.post("/", validationPost, async (req: RequestPost, res: Response) => {
   }
 
   res.status(201).json();
+});
+
+
+const validationPut = [
+  body("name").isString().notEmpty().exists(),
+  body("email").isEmail().notEmpty().exists(),
+];
+type RequestPut = Request<{id: string}, unknown, {name: string, email: string}>;
+
+router.put("/:id", validationPut, (req: RequestPut, res: Response) => {
+  const validationRes = validationResult(req);
+  if (!validationRes.isEmpty()) {
+    return res.status(400).json({ errors: validationRes.array() });
+  }
+
+  const user = update(req.params.id, req.body.name, req.body.email);
+  if (!user) {
+    return res.status(404).json({ error: "user not found" });
+  }
+
+  res.status(200).json(user);
 });
 
 

@@ -1,4 +1,4 @@
-import { Product } from "../models/product";
+import { Product } from "../products";
 
 export interface Order {
   id: string;

@@ -1,7 +1,7 @@
 import express from "express";
 import { Request, Response } from "express-serve-static-core";
 import { body, param, validationResult } from "express-validator";
-import { Product } from "../models/product";
+import { Product } from "../products";
 import { addRewardPoints, getById } from "../users/users.service";
 import { create, update } from "./orders.service";
 

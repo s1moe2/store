@@ -1,5 +1,5 @@
 import { Order } from "../orders";
-import { Product } from "../models/product";
+import { Product } from "../products";
 import { User } from "../users";
 
 export let orders: Array<Order> = [
@@ -354,5 +354,7 @@ let users: Array<User> = [
 ];
 
 export default {
-  users
+  users,
+  orders,
+  products,
 }

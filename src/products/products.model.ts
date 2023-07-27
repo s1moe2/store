@@ -5,3 +5,9 @@ export interface Product {
   price: number;
   image: string;
 }
+
+export interface TopProducts {
+  id: number;
+  name: string;
+  count: number;
+}

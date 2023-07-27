@@ -1,5 +1,5 @@
 import * as db from "../db";
-import { Product } from "../models/product";
+import { Product } from "../products";
 import { Order } from "./orders.model";
 
 
