@@ -1,10 +1,9 @@
 import { NextFunction, Request, Response } from "express";
 import * as jwt from "jsonwebtoken";
-import {Secret} from "jsonwebtoken";
-import pino from "pino-http";
+import { Secret } from "jsonwebtoken";
 import { JWT_SECRET } from "../config";
 
-export function auth(req: Request, res: Response, next: NextFunction) {
+export function authenticate(req: Request, res: Response, next: NextFunction) {
   const token = req.headers["authorization"];
   if (!token) return res.status(401).json({ error: "unauthorized" });
   try {
@@ -14,5 +13,3 @@ export function auth(req: Request, res: Response, next: NextFunction) {
   }
   next();
 }
-
-export const logger = pino();

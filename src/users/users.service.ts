@@ -14,6 +14,10 @@ export const getById = (id: string) => db.users
 .find((u) => u.id === parseInt(id));
 
 
+export const getByUsername = (username: string) => db.users
+.find((u) => u.username === username);
+
+
 export const create = async (username: string, email: string, name: string, password: string) => {
   const user = db.users.find((u) => u.username === username);
   
