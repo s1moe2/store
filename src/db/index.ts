@@ -1,8 +1,7 @@
-import { Order } from "../models/order";
-import { Product } from "../models/product";
-import { User } from "../models/user";
+import { Order } from "../orders";
+import { Product } from "../products";
 
-export const orders: Array<Order> = [
+export let orders: Array<Order> = [
   {
     id: "1",
     userId: 1,
@@ -244,7 +243,7 @@ export const orders: Array<Order> = [
   },
 ];
 
-export const products: Array<Product> = [
+export let products: Array<Product> = [
   {
     id: 1,
     name: "Macbook Pro",
@@ -305,50 +304,7 @@ export const products: Array<Product> = [
   },
 ];
 
-export const users: Array<User> = [
-  {
-    id: 1,
-    username: "bill",
-    name: "Bill Gates",
-    email: "bg@ms.x",
-    spent: 3000,
-    password: "fasfasdfasdfasdf",
-    rewardPoints: 30,
-  },
-  {
-    id: 2,
-    username: "elon",
-    name: "Elon Musk",
-    email: "elon@tesla.com",
-    spent: 5000,
-    password: "fasfasdfasdfasdf",
-    rewardPoints: 10,
-  },
-  {
-    id: 3,
-    username: "jeff",
-    name: "Jeff Bezos",
-    email: "jeff@amazon.com",
-    spent: 8000,
-    password: "fasfasdfasdfasdf",
-    rewardPoints: 4,
-  },
-  {
-    id: 4,
-    username: "mark",
-    name: "Mark Zuckerberg",
-    email: "mark@facebook.com",
-    spent: 2500,
-    password: "fasfasdfasdfasdf",
-    rewardPoints: 8,
-  },
-  {
-    id: 5,
-    username: "diogo",
-    name: "Diogo",
-    email: "ddasdasd@lasjkdfhadsfa.com",
-    spent: 2500,
-    password: "$2b$12$OW2wU7knFHkC094p0SyzoOEpgsB8Z7g4tTR07UQAIDhiEpi2Bp6By",
-    rewardPoints: 11,
-  },
-];
+export default {
+  orders,
+  products,
+}

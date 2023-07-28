@@ -1,9 +1,9 @@
 import express, { NextFunction, Request, Response } from "express";
-import { logger, auth as _auth } from "./middleware";
+import { logger } from "./logger";
 import users from "./users";
 import products from "./products";
 import orders from "./orders";
-import authRoutes from "./auth";
+import authRoutes, { authenticate as _authenticate } from "./auth";
 import * as config from "./config";
 const app = express();
 
@@ -12,7 +12,7 @@ app.use(logger);
 
 app.use("/auth", authRoutes);
 
-// app.use(auth);
+// app.use(authenticate);
 
 app.use("/products", products);
 app.use("/users", users);
