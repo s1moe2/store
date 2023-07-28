@@ -19,15 +19,15 @@ $ curl 'http://localhost:3000/users' \
   --silent \
   --request POST \
   --header "Content-Type: application/json" \
-  --data '{"username": "ada", "name": "Ada", "email": "ada@gmail.com", "password": "123"}' \
+  --data '{"username": "cid", "name": "Cid", "email": "cid@gmail.com", "password": "333"}' \
   --verbose
 
 # PUT
-$ curl 'http://localhost:3000/users/1' \
+$ curl 'http://localhost:3000/users/64c42d28c9b75bca5b8810d7' \
   --silent \
   --request PUT \
   --header "Content-Type: application/json" \
-  --data '{"name": "José", "email": "batata@gmail.com"}' \
+  --data '{"name": "Ded", "email": "deb@gmail.com"}' \
   --verbose
 
 # DELETE

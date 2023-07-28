@@ -1,0 +1,52 @@
+group_1:
+  students: [´Rodrigo', 'Jandira']
+  domain: Movies
+  properties:
+    - name: string non-empty UNIQUE
+    - director: string non-empty
+    - releaseYear: number > 1890 
+    - imdbUrl: string optional
+
+group_2:
+  students: [´Guilherme', 'Daniel']
+  domain: Books
+  properties:
+    - isbn: string non-empty UNIQUE
+    - name: string non-empty
+    - author: string non-empty
+    - pages: number > 10
+
+group_3:
+  students: [´Joel', 'Tomás']
+  domain: Cities
+  properties:
+    - name: string non-empty UNIQUE
+    - mapUrl: string non-empty
+    - airport: string
+    - population: number > 1
+
+group_4:
+  students: [´Joao Paiva', 'Catarina']
+  domain: Cars
+  properties:
+    - name: string non-empty UNIQUE
+    - manufacturer: string non-empty
+    - maxSpeed: number > 1
+    - price: number > 1
+
+group_5:
+  students: [´Rodolfo', 'Andreia']
+  domain: Vegetables
+  properties:
+    - name: string non-empty UNIQUE
+    - color: string non-empty
+    - price: number > 0
+
+group_6:
+  students: [´Luciene', 'Pedro']
+  domain: Animals
+  properties:
+    - specie: string non-empty UNIQUE
+    - name: string non-empty
+    - height: number  > 0
+    - weight: number  > 0
