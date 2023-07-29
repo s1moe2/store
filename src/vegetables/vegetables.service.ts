@@ -28,7 +28,7 @@ export const getByVegetableName = async (name: string) => {
   return result;
 };
 
-export const createVegetable = async (_id: string, name: string, color: string, price: number) => {
+export const createVegetable = async (name: string, color: string, price: number) => {
   const db = await getDb();
   const collection = db.collection<Vegetables>("vegetablesDb");
 
