@@ -1,60 +1,42 @@
 // let query = {_id: ObjectId(req.params.id)};
 
-import {ObjectId} from 'mongodb'
-import bcrypt from "bcrypt";
+import { ObjectId } from "mongodb";
 import { Vegetables } from "./vegetables.model";
-import { getDb } from '../db/mongo'
+import { getDb } from "../db/mongo";
 // import db from "../db";
 
-const db = { users: [] as Vegetables[] } // TODO: DEBUG ONLY
+//check this
+const db = { vegetables: [] as Vegetables[] }; // TODO: DEBUG ONLY
 
 export const getAll = async () => {
   const db = await getDb();
-  const collection = db.collection<Vegetables>("users");
+  const collection = db.collection<Vegetables>("vegetablesDb");
 
   let query = {};
-  const result = await collection.find<Vegetables>(query)
-    .limit(50)
-    .toArray();
+  const result = await collection.find<Vegetables>(query).limit(50).toArray();
 
   return result;
-}
+};
 
-
-export const getById = async (id: string) => {
+export const getByVegetableName = async (name: string) => {
   const db = await getDb();
-  const collection = db.collection<Vegetables>("users");
+  const collection = db.collection<Vegetables>("vegetablesDb");
 
-  let query = {_id: new ObjectId(id)};
+  let query = { name };
   let result = await collection.findOne<Vegetables>(query);
 
   return result;
-}
+};
 
-
-export const getByUsername = async (username: string) => {
+export const createVegetable = async (_id: string, name: string, color: string, price: number) => {
   const db = await getDb();
-  const collection = db.collection<Vegetables>("users");
+  const collection = db.collection<Vegetables>("vegetablesDb");
 
-  let query = {username};
-  let result = await collection.findOne<Vegetables>(query);
+  const vegetable = await getByVegetableName(name);
 
-  return result;
-}
-
-
-
-export const create = async (username: string, email: string, name: string, password: string) => {
-  const db = await getDb();
-  const collection = db.collection<Vegetables>("users");
-
-  const user = await getByUsername(username)
-
-  if (user) {
-    throw new RangeError("user already exists");
+  if (vegetable) {
+    throw new RangeError("vegetable already exists");
   }
-
-  const hash = await bcrypt.hash(password, 12);
 
   const newVegetable: Vegetables = {
     name,
@@ -63,33 +45,30 @@ export const create = async (username: string, email: string, name: string, pass
   };
 
   return await collection.insertOne(newVegetable);
-}
+};
 
-
-export const update = async (id: string, name: string, email: string) => {
+export const updateVegetable = async (id: string, name: string, color: string, price: number) => {
   const db = await getDb();
-  const collection = db.collection<User>("users");
+  const collection = db.collection<Vegetables>("vegetablesDb");
 
-  let query = {_id: new ObjectId(id)};  
+  let query = { _id: new ObjectId(id) };
   const updates = {
     $set: {
       name,
       color,
       price,
-    }
+    },
   };
   let result = await collection.updateOne(query, updates);
   return result;
-}
+};
 
-
-export const remove = async (id: string) => {
+export const removeVegetable = async (id: string) => {
   const db = await getDb();
-  const collection = db.collection<Vegetables>("users");
+  const collection = db.collection<Vegetables>("vegetablesDb");
 
-  let query = {_id: new ObjectId(id)};
+  let query = { _id: new ObjectId(id) };
   let result = await collection.deleteOne(query);
 
   return result;
-}
-
+};
