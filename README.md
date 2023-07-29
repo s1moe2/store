@@ -96,3 +96,35 @@ $ curl 'http://localhost:3000/products/1' \
   --verbose \
 
 ```
+
+### /vegetables
+```sh
+# GET ALL
+$ curl 'http://localhost:3000/vegetables' --silent | jq
+
+# GET ONE
+$ curl 'http://localhost:3000/vegetables/1' --silent | jq
+
+# POST
+$ curl 'http://localhost:3000/vegetables' \
+  --silent \
+  --request POST \
+  --header "Content-Type: application/json" \
+  --data '{"name": "Potato", "color": "red", "price": 10}' \
+  --verbose
+
+# PUT
+$ curl 'http://localhost:3000/vegetables/64c42d28c9b75bca5b8810d7' \
+  --silent \
+  --request PUT \
+  --header "Content-Type: application/json" \
+  --data '{"name": "AAA", "price": 15}' \
+  --verbose
+
+# DELETE
+$ curl 'http://localhost:3000/vegetables/7' \
+  --silent \
+  --request DELETE \
+  --verbose \
+
+```
