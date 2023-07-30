@@ -1,7 +1,9 @@
-import * as db from "../db";
-import { City } from "./cities.model";
+import CityModel, { City } from "./cities.model";
 
-export const getAll = () => db.cities;
+export const getAll = async () => {
+  const cities = await CityModel.find();
+  return cities;
+};
 
 export const create = async (name: string) => {
   const city: City = {
@@ -11,12 +13,12 @@ export const create = async (name: string) => {
     airport: "",
     population: 0,
   };
-  const result = await City.create(city);
+  const result = await CityModel.create(city);
   return result;
 };
 
 export const update = async (id: string, newName: string) => {
-  const city = await City.findById(id);
+  const city = await CityModel.findById(id);
   if (!city) {
     return undefined;
   }
@@ -24,6 +26,16 @@ export const update = async (id: string, newName: string) => {
   city.name = newName;
   await city.save();
   return city;
+};
+
+export const getById = async (id: string) => {
+  const city = await CityModel.findById(id);
+  return city;
+};
+
+export const deleteById = async (id: string) => {
+  const result = await CityModel.deleteOne({ _id: id });
+  return result;
 };
 
 function generateCityId() {

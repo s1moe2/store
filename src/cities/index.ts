@@ -1,4 +1,3 @@
-import { City } from "./cities.model";
 import { router } from "./cities.router";
 import mongoose from "mongoose";
 
@@ -10,4 +9,5 @@ mongoose.connect("mongodb://localhost:27017/cities", (err) => {
   }
 });
 
-export { City, router };
+export { router };
+

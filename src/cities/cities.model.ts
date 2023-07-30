@@ -1,5 +1,13 @@
 import mongoose from "mongoose";
 
+export interface City {
+  id: string;
+  name: string;
+  mapUrl: string;
+  airport: string;
+  population: number;
+}
+
 const CitySchema = new mongoose.Schema({
   name: String,
   mapUrl: String,
@@ -9,10 +17,4 @@ const CitySchema = new mongoose.Schema({
 
 const City = mongoose.model("City", CitySchema);
 
-export interface City {
-  id: string;
-  name: string;
-  mapUrl: string;
-  airport: string;
-  population: number;
-}
+export default City;
