@@ -1,4 +1,5 @@
 import { getDb } from "../db/mongo";
+import { ObjectId } from "mongodb";
 import { Book } from "../books/books.model";
 
 export const create = async (isbn: string, name: string, author: string, pages: number) => {
@@ -16,4 +17,20 @@ export const create = async (isbn: string, name: string, author: string, pages: 
   };
 
   return await collection.insertOne(newBook);
+};
+
+export const update = async (isbn: string, name: string, author: string, pages: number) => {
+  const db = await getDb();
+  const collection = db.collection<Book>("books");
+
+  let query = { isbn: isbn };
+  const updates = {
+    $set: {
+      name,
+      author,
+      pages,
+    },
+  };
+  let result = await collection.updateOne(query, updates);
+  return result;
 };
