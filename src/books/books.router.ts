@@ -1,7 +1,7 @@
 import express, { Response, Request } from "express";
 import { body, validationResult } from "express-validator";
 import { MongoServerError } from "mongodb";
-import { create, update } from "./books.service";
+import { create, update, getAll, getByIsbn } from "./books.service";
 export const router = express.Router();
 
 const validationBook = [
@@ -54,6 +54,32 @@ router.put("/:isbn", validationBook, async (req: RequestPut, res: Response) => {
 
   res.status(200).json(result);
 });
+
+router.get("/", async (_req: Request, res: Response) => {
+  const books = await getAll();
+  res.status(200).json(books);
+});
+
+
+router.get("/:isbn", async (req: Request, res: Response) => {
+  const book = await getByIsbn(req.params.isbn)
+
+  if (!book) {
+    return res.status(404).json({ error: "book not found" });
+  }
+  res.status(200).json(book);
+});
+
+
+
+
+
+
+
+
+
+
+
 
 // app.get('/books', async (req: Request, res: Response) => {
 //   try {
