@@ -8,7 +8,6 @@ import {
   updateVegetable,
 } from "./vegetables.service";
 
-
 export const router = express.Router();
 
 router.get("/", async (_req: Request, res: Response) => {
@@ -20,7 +19,7 @@ router.get("/:id", async (req: Request, res: Response) => {
   const vegetable = await getByVegetableName(req.params.id);
 
   if (!vegetable) {
-    return res.status(404).json({ error: "user not found" });
+    return res.status(404).json({ error: "vegetable not found" });
   }
   res.status(200).json(vegetable);
 });
@@ -28,7 +27,7 @@ router.get("/:id", async (req: Request, res: Response) => {
 const validationPost = [
   body("name").notEmpty().exists(),
   body("color").notEmpty().exists(),
-  body("price").isNumeric(), //missing the verification of > 0
+  body("price").isNumeric().isFloat({ gt: 0 }),
 ];
 type RequestPost = Request<{ id: string }, unknown, { name: string; color: string; price: number }>;
 
@@ -68,7 +67,7 @@ router.put("/:id", validationPut, async (req: RequestPut, res: Response) => {
     req.body.price,
   );
   if (result.matchedCount === 0) {
-    return res.status(404).json({ error: "user not found" });
+    return res.status(404).json({ error: "vegetable not found" });
   }
 
   res.status(200).json(result);
@@ -78,7 +77,7 @@ router.delete("/:id", async (req: Request, res: Response) => {
   const result = await removeVegetable(req.params.id);
 
   if (result.deletedCount === 0) {
-    return res.status(404).json({ error: "user not found" });
+    return res.status(404).json({ error: "vegetable not found" });
   }
 
   res.status(204).json();
