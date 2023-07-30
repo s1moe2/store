@@ -5,13 +5,11 @@ import { Animals } from "../animals";
 import { getDb } from "../db/mongo";
 
 
-const db = { animals: [] as Animals[] }; // TODO: DEBUG ONLY
-
 export const getAll = async () => {
   const db = await getDb();
   const collection = db.collection<Animals>("animals");
 
-  let query = {};
+  const query = {};
   const result = await collection.find<Animals>(query).limit(50).toArray();
 
   return result;
@@ -21,8 +19,8 @@ export const getById = async (id: string) => {
   const db = await getDb();
   const collection = db.collection<Animals>("animals");
 
-  let query = { _id: new ObjectId(id) };
-  let result = await collection.findOne<Animals>(query);
+  const query = { _id: new ObjectId(id) };
+  const result = await collection.findOne<Animals>(query);
 
   return result;
 };
@@ -31,8 +29,8 @@ export const getByName = async (name: string) => {
   const db = await getDb();
   const collection = db.collection<Animals>("animals");
 
-  let query = { name };
-  let result = await collection.findOne<Animals>(query);
+  const query = { name };
+  const result = await collection.findOne<Animals>(query);
 
   return result;
 };
@@ -66,7 +64,7 @@ export const update = async (
   const db = await getDb();
   const collection = db.collection<Animals>("animals");
 
-  let query = { _id: new ObjectId(id) };
+  const query = { _id: new ObjectId(id) };
   const updates = {
     $set: {
       name,
@@ -76,7 +74,7 @@ export const update = async (
     },
   };
 
-  let result = await collection.updateOne(query, updates);
+  const result = await collection.updateOne(query, updates);
 
   return result;
 };
@@ -85,8 +83,8 @@ export const remove = async (id: string) => {
   const db = await getDb();
   const collection = db.collection<Animals>("animals");
 
-  let query = { _id: new ObjectId(id) };
-  let result = await collection.deleteOne(query);
+  const query = { _id: new ObjectId(id) };
+  const result = await collection.deleteOne(query);
 
   return result;
 };
