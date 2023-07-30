@@ -51,7 +51,7 @@ router.post("/", validationPost, async (req: RequestPost, res: Response) => {
 const validationPut = [
   body("name").notEmpty().exists(),
   body("color").notEmpty().exists(),
-  body("price").isNumeric(), //missing the verification of > 0
+  body("price").isNumeric().isFloat({ gt: 0 }),
 ];
 type RequestPut = Request<{ id: string }, unknown, { name: string; color: string; price: number }>;
 
