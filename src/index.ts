@@ -3,6 +3,7 @@ import { logger } from "./logger";
 import users from "./users";
 import products from "./products";
 import orders from "./orders";
+import books from "./books";
 import authRoutes, { authenticate as _authenticate } from "./auth";
 import * as config from "./config";
 const app = express();
@@ -12,11 +13,10 @@ app.use(logger);
 
 app.use("/auth", authRoutes);
 
-// app.use(authenticate);
-
 app.use("/products", products);
 app.use("/users", users);
 app.use("/orders", orders);
+app.use("/books", books);
 
 app.use((err: Error, _req: Request, res: Response, _next: NextFunction): void => {
   console.error(err);

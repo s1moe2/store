@@ -7,6 +7,7 @@ Pull Request title convention: `issue(#[NUM ISSUE]: [short description])`
 ## SAMPLES
 
 ### /users
+
 ```sh
 # GET ALL
 $ curl 'http://localhost:3000/users' --silent | jq
@@ -39,6 +40,7 @@ $ curl 'http://localhost:3000/users/7' \
 ```
 
 ### /orders
+
 ```sh
 
 # POST
@@ -60,6 +62,7 @@ $ curl 'http://localhost:3000/orders/HJtWOz4Ktw' \
 ```
 
 ### /products
+
 ```sh
 
 # GET ALL
@@ -89,10 +92,23 @@ $ curl 'http://localhost:3000/products/1' \
   --data '{"name": "POTATO", "category": "vegetable", "price": 2.50, "image": "no-image"}' \
   --verbose
 
-# DELETE 
+# DELETE
 $ curl 'http://localhost:3000/products/1' \
   --silent \
   --request DELETE \
   --verbose \
+
+```
+
+```sh
+### Books
+
+# POST
+curl 'http://localhost:9000/books' \
+  --silent \
+  --request POST \
+  --header "Content-Type: application/json" \
+  --data '{"isbn": "9781484201886", "name": "Beginning Node.js", "author": "Basarat Syed", "pages": "308"}' \
+  --verbose
 
 ```
