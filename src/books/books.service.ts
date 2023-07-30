@@ -6,13 +6,8 @@ export const create = async (isbn: string, name: string, author: string, pages: 
   const db = await getDb();
   const collection = db.collection<Book>("books");
 
-  // ToDo: Implement logic that guarantees that ISBN is UNIQUE on the DB.
-  // Question: Can it be configured in the DB? Or do we had custom logic on our side?
-  //const user = await getByUsername(username)
-  //
-  //if (user) {
-  //  throw new RangeError("user already exists");
-  //}
+  // ToDo: Can be improved - This config only needs to be ran once, not every POST call;
+  collection.createIndex({ isbn: 1 }, { unique: true });
 
   const newBook: Book = {
     isbn,

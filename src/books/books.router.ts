@@ -1,5 +1,6 @@
 import express, { Response, Request } from "express";
 import { body, validationResult } from "express-validator";
+import { MongoServerError } from "mongodb";
 import { create } from "./books.service";
 export const router = express.Router();
 
@@ -26,7 +27,7 @@ router.post("/", validationPost, async (req: RequestPost, res: Response) => {
     const result = await create(req.body.isbn, req.body.name, req.body.author, req.body.pages);
     return res.status(201).json(result);
   } catch (error: unknown) {
-    if (error instanceof RangeError) {
+    if (error instanceof MongoServerError && error.code === 11000) {
       return res.status(409).json({ error });
     }
   }
