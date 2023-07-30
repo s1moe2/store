@@ -96,3 +96,35 @@ $ curl 'http://localhost:3000/products/1' \
   --verbose \
 
 ```
+
+### /animals
+```sh
+# GET ALL
+$ curl 'http://localhost:3000/animals' --silent | jq
+
+# # GET ONE
+# $ curl 'http://localhost:3000/animals/1' --silent | jq
+
+# # POST
+# $ curl 'http://localhost:3000/animals' \
+#   --silent \
+#   --request POST \
+#   --header "Content-Type: application/json" \
+#   --data '{"name": "Buffalo", "specie": "Mammals", "height": 250, "weight": 1500}' \
+#   --verbose
+
+# # PUT
+# $ curl 'http://localhost:3000/animals/64c42d28c9b75bca5b8810d7' \
+#   --silent \
+#   --request PUT \
+#   --header "Content-Type: application/json" \
+#   --data '{"name": "Ded", "email": "deb@gmail.com"}' \
+#   --verbose
+
+# # DELETE
+# $ curl 'http://localhost:3000/animals/7' \
+#   --silent \
+#   --request DELETE \
+#   --verbose \
+
+```

@@ -1,8 +1,14 @@
 import { MongoClient, Db } from "mongodb";
 
+// const dbUsr = "dbUser";
+// const dbPwd = "123";
+// const uri = `mongodb+srv://${dbUsr}:${dbPwd}@cluster0.gppdsiv.mongodb.net/store?retryWrites=true&w=majority`;
+
 const dbUsr = "dbUser";
 const dbPwd = "123";
-const uri = `mongodb+srv://${dbUsr}:${dbPwd}@cluster0.gppdsiv.mongodb.net/store?retryWrites=true&w=majority`;
+const uri = `mongodb+srv://${dbUsr}:${dbPwd}@cluster0.cfdok48.mongodb.net/?retryWrites=true&w=majority`;
+
+// mongodb+srv://dbUser:123@cluster0.cfdok48.mongodb.net/?retryWrites=true&w=majority
 
 let db: Db
 
