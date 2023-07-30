@@ -1,120 +1,92 @@
 // let query = {_id: ObjectId(req.params.id)};
 
-import {ObjectId} from 'mongodb'
-import bcrypt from "bcrypt";
+import { ObjectId } from "mongodb";
 import { Animals } from "../animals";
-import { getDb } from '../db/mongo'
-// import db from "../db";
+import { getDb } from "../db/mongo";
 
-const db = { animals: [] as Animals[] } // TODO: DEBUG ONLY
+
+const db = { animals: [] as Animals[] }; // TODO: DEBUG ONLY
 
 export const getAll = async () => {
-  const db = await getDb()
-  const collection = db.collection<Animals>("animals")
+  const db = await getDb();
+  const collection = db.collection<Animals>("animals");
 
-  let query = {}
-  const result = await collection.find<Animals>(query)
-    .limit(50)
-    .toArray()
+  let query = {};
+  const result = await collection.find<Animals>(query).limit(50).toArray();
 
-    return result
-}
+  return result;
+};
 
-// export const getAll = async () => {
-//   const db = await getDb();
-//   const collection = db.collection<Animals>("animals");
+export const getById = async (id: string) => {
+  const db = await getDb();
+  const collection = db.collection<Animals>("animals");
 
-//   let query = {};
-//   const result = await collection.find<Animals>(query)
-//     .limit(50)
-//     .toArray();
+  let query = { _id: new ObjectId(id) };
+  let result = await collection.findOne<Animals>(query);
 
-//   return result;
-// }
+  return result;
+};
 
+export const getByName = async (name: string) => {
+  const db = await getDb();
+  const collection = db.collection<Animals>("animals");
 
-// export const getById = async (id: string) => {
-//   const db = await getDb();
-//   const collection = db.collection<Animals>("animals");
+  let query = { name };
+  let result = await collection.findOne<Animals>(query);
 
-//   let query = {_id: new ObjectId(id)};
-//   let result = await collection.findOne<Animals>(query);
+  return result;
+};
 
-//   return result;
-// }
+export const create = async (name: string, specie: string, height: number, weight: number) => {
+  const db = await getDb();
+  const collection = db.collection<Animals>("animals");
 
+  const animal = await getByName(name);
+  if (animal) {
+    throw new RangeError("name already exists");
+  }
 
-// export const getByUsername = async (username: string) => {
-//   const db = await getDb();
-//   const collection = db.collection<Animals>("animals");
+  const newAnimal: Animals = {
+    name,
+    specie,
+    height,
+    weight,
+  };
 
-//   let query = {username};
-//   let result = await collection.findOne<Animals>(query);
+  return await collection.insertOne(newAnimal);
+};
 
-//   return result;
-// }
+export const update = async (
+  id: string,
+  name: string,
+  specie: string,
+  height: number,
+  weight: number,
+) => {
+  const db = await getDb();
+  const collection = db.collection<Animals>("animals");
 
+  let query = { _id: new ObjectId(id) };
+  const updates = {
+    $set: {
+      name,
+      specie,
+      height,
+      weight,
+    },
+  };
 
+  let result = await collection.updateOne(query, updates);
 
-// export const create = async (username: string, email: string, name: string, password: string) => {
-//   const db = await getDb();
-//   const collection = db.collection<User>("animals");
+  return result;
+};
 
-//   const user = await getByUsername(username)
+export const remove = async (id: string) => {
+  const db = await getDb();
+  const collection = db.collection<Animals>("animals");
 
-//   if (user) {
-//     throw new RangeError("user already exists");
-//   }
+  let query = { _id: new ObjectId(id) };
+  let result = await collection.deleteOne(query);
 
-//   const hash = await bcrypt.hash(password, 12);
-
-//   const newUser: Animals = {
-//     username,
-//     name,
-//     email,
-//     spent: 0,
-//     password: hash,
-//     rewardPoints: 0,
-//   };
-
-//   return await collection.insertOne(newUser);
-// }
-
-
-// export const update = async (id: string, name: string, email: string) => {
-//   const db = await getDb();
-//   const collection = db.collection<Animals>("animals");
-
-//   let query = {_id: new ObjectId(id)};  
-//   const updates = {
-//     $set: {
-//       name,
-//       email,
-//     }
-//   };
-//   let result = await collection.updateOne(query, updates);
-//   return result;
-// }
-
-
-// export const remove = async (id: string) => {
-//   const db = await getDb();
-//   const collection = db.collection<Animals>("animals");
-
-//   let query = {_id: new ObjectId(id)};
-//   let result = await collection.deleteOne(query);
-
-//   return result;
-// }
-
-
-// export const addRewardPoints = (id: number, rewardPoints: number) => {
-//   throw new Error('NOT IMPLEMENTED')
-//   // const user = getById(id.toString());
-
-//   // if(!user) {
-//   //   throw new Error(`User ID ${id} does not exist`);
-//   // }
-
-//   // user.rewardPoints += rewardPoints;
-// }
+  return result;
+};

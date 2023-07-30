@@ -102,29 +102,31 @@ $ curl 'http://localhost:3000/products/1' \
 # GET ALL
 $ curl 'http://localhost:3000/animals' --silent | jq
 
-# # GET ONE
-# $ curl 'http://localhost:3000/animals/1' --silent | jq
+# GET ONE
+$ curl 'http://localhost:3000/animals/64c57835ee30d3308d846996' --silent | jq
 
-# # POST
-# $ curl 'http://localhost:3000/animals' \
-#   --silent \
-#   --request POST \
-#   --header "Content-Type: application/json" \
-#   --data '{"name": "Buffalo", "specie": "Mammals", "height": 250, "weight": 1500}' \
-#   --verbose
+# POST
+$ curl 'http://localhost:3000/animals' \
+  --silent \
+  --request POST \
+  --header "Content-Type: application/json" \
+  --data '{"name": "Snail", "specie": "Invertebrates", "height": 15, "weight": 0.8}' \
+  --verbose
 
-# # PUT
-# $ curl 'http://localhost:3000/animals/64c42d28c9b75bca5b8810d7' \
-#   --silent \
-#   --request PUT \
-#   --header "Content-Type: application/json" \
-#   --data '{"name": "Ded", "email": "deb@gmail.com"}' \
-#   --verbose
+# PUT
+$ curl 'http://localhost:3000/animals/64c57835ee30d3308d846996' \
+  --silent \
+  --request PUT \
+  --header "Content-Type: application/json" \
+  --data '{"name": "Macaw", "specie": "birds", "height":50, "weight":1.5}' \
+  --verbose
 
-# # DELETE
-# $ curl 'http://localhost:3000/animals/7' \
-#   --silent \
-#   --request DELETE \
-#   --verbose \
+# DELETE
+$ curl 'http://localhost:3000/animals/64c69fc0a9bce7e53032d9ac' \
+  --silent \
+  --request DELETE \
+  --verbose \
 
 ```
+
+<!-- 64c69fc0a9bce7e53032d9ac -->
