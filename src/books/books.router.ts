@@ -33,38 +33,27 @@ router.post("/", validationBook, async (req: RequestPost, res: Response) => {
   }
 });
 
-type RequestPut = Request<{id: string}, unknown, {isbn: string; name: string; author: string; pages: number}>;
+type RequestPut = Request<
+  { isbn: string },
+  unknown,
+  { isbn: string; name: string; author: string; pages: number }
+>;
 
-router.put("/:id", validationBook, (req: RequestPut, res: Response) => {
+router.put("/:isbn", validationBook, async (req: RequestPut, res: Response) => {
   const validation = validationResult(req);
   if (!validation.isEmpty()) {
     return res.status(400).json({ error: validation.array() });
   }
 
-  const {isbn, name, author, pages} = req.body;
+  const { name, author, pages } = req.body;
 
-  const book = update(isbn, name, author, pages);
-  if (!book) {
+  const result = await update(req.params.isbn, name, author, pages);
+  if (result.matchedCount === 0) {
     return res.status(404).json({ error: "book not found" });
   }
 
-  res.status(200).json(book);
+  res.status(200).json(result);
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // app.get('/books', async (req: Request, res: Response) => {
 //   try {

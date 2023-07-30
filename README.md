@@ -104,11 +104,20 @@ $ curl 'http://localhost:3000/products/1' \
 ### Books
 
 # POST
-curl 'http://localhost:9000/books' \
+curl 'http://localhost:3000/books' \
   --silent \
   --request POST \
   --header "Content-Type: application/json" \
   --data '{"isbn": "9781484201886", "name": "Beginning Node.js", "author": "Basarat Syed", "pages": "308"}' \
   --verbose
 
+# PUT
+curl 'http://localhost:3000/books/9781484201886' \
+  --silent \
+  --request PUT \
+  --header "Content-Type: application/json" \
+  --data '{"isbn": "9781484201886", "name": "Beginning Node.js", "author": "Potato", "pages": "308"}' \
+  --verbose
+
+```
 ```
