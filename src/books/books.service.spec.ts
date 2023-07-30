@@ -36,12 +36,7 @@ describe("create", () => {
     expect(getDb).toHaveBeenCalledTimes(1);
     expect(db.collection).toHaveBeenCalledWith("books");
     expect(db.collection().createIndex).toHaveBeenCalledWith({ isbn: 1 }, { unique: true });
-    expect(db.collection().insertOne).toHaveBeenCalledWith({
-      isbn: book.isbn,
-      name: book.name,
-      author: book.author,
-      pages: book.pages,
-    });
+    expect(db.collection().insertOne).toHaveBeenCalledWith(book);
     expect(result).toEqual({
       value: {
         _id: "some-mocked-id",
