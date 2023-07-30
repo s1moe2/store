@@ -7,7 +7,7 @@ import {
   removeVegetable,
   updateVegetable,
 } from "./vegetables.service";
-import { option, options } from "yargs";
+
 
 export const router = express.Router();
 
