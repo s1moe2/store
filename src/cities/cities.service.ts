@@ -1,4 +1,5 @@
-import CityModel, { City } from "./cities.model";
+import CityModel from "./cities.model";
+import { City } from "./cities.model";
 
 export const getAll = async () => {
   const cities = await CityModel.find();

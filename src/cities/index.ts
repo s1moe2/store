@@ -1,7 +1,7 @@
 import { router } from "./cities.router";
-import mongoose from "mongoose";
+import mongoose, { ConnectOptions } from "mongoose";
 
-mongoose.connect("mongodb://localhost:27017/cities", (err) => {
+mongoose.connect("mongodb://localhost:27017/cities", (err: any) => {
   if (err) {
     console.error(err);
   } else {
@@ -10,4 +10,3 @@ mongoose.connect("mongodb://localhost:27017/cities", (err) => {
 });
 
 export { router };
-
