@@ -1,7 +1,7 @@
 import express, { Response, Request } from "express";
 import { body, validationResult } from "express-validator";
 import { MongoServerError } from "mongodb";
-import { create, update, getAll, getByIsbn } from "./books.service";
+import { create, update, getAll, getByIsbn, remove } from "./books.service";
 export const router = express.Router();
 
 const validationBook = [
@@ -71,36 +71,12 @@ router.get("/:isbn", async (req: Request, res: Response) => {
 });
 
 
+router.delete("/:isbn", async (req: Request, res: Response) => {
+  const result = await remove(req.params.isbn)
 
+  if (result.deletedCount === 0) {
+    return res.status(404).json({ error: "book not found" });
+  }
 
-
-
-
-
-
-
-
-
-// app.get('/books', async (req: Request, res: Response) => {
-//   try {
-//     const books = await collection.find().toArray();
-//     res.json(books);
-//   } catch (error) {
-//     res.status(500).json({ message: 'Internal server error' });
-//   }
-// });
-
-// app.get('/books/:id', async (req: Request, res: Response) => {
-//   try {
-//     const bookId = getById(req.params.id);
-//     const book = await collection.findOne({ _id: bookId });
-
-//     if (!book) {
-//       return res.status(404).json({ message: 'Book not found' });
-//     }
-
-//     res.json(book);
-//   } catch (error) {
-//     res.status(500).json({ message: 'Internal server error' });
-//   }
-// });
+  res.status(204).json();
+});

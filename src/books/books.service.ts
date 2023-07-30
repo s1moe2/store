@@ -53,3 +53,13 @@ export const getByIsbn = async (isbn: string) => {
 
   return result;
 };
+
+export const remove = async (isbn: string) => {
+  const db = await getDb();
+  const collection = db.collection<Book>("books");
+
+  let query = { isbn: isbn };
+  let result = await collection.deleteOne(query);
+
+  return result;
+};

@@ -99,9 +99,9 @@ $ curl 'http://localhost:3000/products/1' \
   --verbose \
 
 ```
+### /Books
 
 ```sh
-### Books
 
 # POST
 curl 'http://localhost:3000/books' \
@@ -119,5 +119,25 @@ curl 'http://localhost:3000/books/9781484201886' \
   --data '{"isbn": "9781484201886", "name": "Beginning Node.js", "author": "Potato", "pages": "308"}' \
   --verbose
 
-```
+  # GET ALL
+curl 'http://localhost:3000/books/' \
+  --silent \
+  --request GET \
+  --header "Content-Type: application/json" \
+  --verbose
+
+    # GET BY ISBN
+curl 'http://localhost:3000/books/9781484201886' \
+  --silent \
+  --request GET \
+  --header "Content-Type: application/json" \
+  --verbose
+
+    # DELETE
+curl 'http://localhost:3000/books/9781484201886' \
+  --silent \
+  --request DELETE \
+  --header "Content-Type: application/json" \
+  --verbose
+
 ```
