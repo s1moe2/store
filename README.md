@@ -110,7 +110,7 @@ $ curl 'http://localhost:3000/vegetables' \
   --silent \
   --request POST \
   --header "Content-Type: application/json" \
-  --data '{"name": "Potato", "color": "red", "price": 10}' \
+  --data '{"name": "Carrot", "color": "orange", "price": 10}' \
   --verbose
 
 # PUT
@@ -122,7 +122,7 @@ $ curl 'http://localhost:3000/vegetables/64c42d28c9b75bca5b8810d7' \
   --verbose
 
 # DELETE
-$ curl 'http://localhost:3000/vegetables/7' \
+$ curl 'http://localhost:3000/vegetables/64c7e46e47b4b11a5d2620fd' \
   --silent \
   --request DELETE \
   --verbose \
