@@ -77,7 +77,7 @@ describe("Vegetables CRUD Test", () => {
   it("should update an existing vegetable", async () => {
     const updatedVegetable: Vegetables = {
         name: "Potato",
-        color: "red",
+        color: "brown",
         price: 10
     };
 
