@@ -5,6 +5,7 @@ import { create, update, getAll, getById, deleteById } from "./cities.service";
 
 export const router = express.Router();
 
+//Post
 router.post("/", [body("name").notEmpty().exists()], async (req: Request, res: Response) => {
   const validationRes = validationResult(req);
   if (!validationRes.isEmpty()) {
@@ -15,6 +16,22 @@ router.post("/", [body("name").notEmpty().exists()], async (req: Request, res: R
   res.status(201).json(city);
 });
 
+//Get
+router.get("/", async (req: Request, res: Response) => {
+  const cities = await getAll();
+  res.status(200).json(cities);
+});
+
+router.get("/:id", async (req: Request, res: Response) => {
+  const city = await getById(req.params.id);
+  if (!city) {
+    return res.status(404).json({ error: "city not found" });
+  }
+
+  res.status(200).json(city);
+});
+
+//Put
 router.put(
   "/:id",
   [param("id").isString().exists(), body("name").notEmpty().exists()],
@@ -33,20 +50,7 @@ router.put(
   },
 );
 
-router.get("/", async (req: Request, res: Response) => {
-  const cities = await getAll();
-  res.status(200).json(cities);
-});
-
-router.get("/:id", async (req: Request, res: Response) => {
-  const city = await getById(req.params.id);
-  if (!city) {
-    return res.status(404).json({ error: "city not found" });
-  }
-
-  res.status(200).json(city);
-});
-
+//Delete
 router.delete("/:id", async (req: Request, res: Response) => {
   const result = await deleteById(req.params.id);
   if (!result) {
