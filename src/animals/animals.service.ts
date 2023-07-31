@@ -1,5 +1,3 @@
-// let query = {_id: ObjectId(req.params.id)};
-
 import { ObjectId } from "mongodb";
 import { Animals } from "../animals";
 import { getDb } from "../db/mongo";

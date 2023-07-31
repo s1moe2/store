@@ -9,6 +9,7 @@ router.get("/", async (_req: Request, res: Response) => {
   res.status(200).json(animals);
 });
 
+
 router.get("/:id", async (req: Request, res: Response) => {
   const animal = await getById(req.params.id);
 
@@ -17,6 +18,7 @@ router.get("/:id", async (req: Request, res: Response) => {
   }
   res.status(200).json(animal);
 });
+
 
 const validationPost = [
   body("name").notEmpty().exists(),
@@ -29,7 +31,6 @@ type RequestPost = Request<
   unknown,
   { name: string; specie: string; height: number; weight: number }
 >;
-
 router.post("/", validationPost, async (req: RequestPost, res: Response) => {
   const validationRes = validationResult(req);
   if (!validationRes.isEmpty()) {
@@ -46,6 +47,7 @@ router.post("/", validationPost, async (req: RequestPost, res: Response) => {
   }
 });
 
+
 const validationPut = [
   body("name").notEmpty().exists(),
   body("specie").notEmpty().exists(),
@@ -57,7 +59,6 @@ type RequestPut = Request<
   unknown,
   { name: string; specie: string; height: number; weight: number }
 >;
-
 router.put("/:id", validationPut, async (req: RequestPut, res: Response) => {
   const validationRes = validationResult(req);
   if (!validationRes.isEmpty()) {

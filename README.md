@@ -128,5 +128,3 @@ $ curl 'http://localhost:3000/animals/64c69fc0a9bce7e53032d9ac' \
   --verbose \
 
 ```
-
-<!-- 64c69fc0a9bce7e53032d9ac -->
