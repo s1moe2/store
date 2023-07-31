@@ -10,6 +10,7 @@ async function main() {
 
     console.log("Connected to MongoDB");
     const app = express();
+    module.exports = app;
     app.use(express.json());
     app.use("/cities", router);
 

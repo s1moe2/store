@@ -1,8 +1,9 @@
 import request from "supertest";
 import mongoose from "mongoose";
-import app from "../index";
 
-const testDbUrl = "mongodb://localhost:27017/test_cities"; // Replace with your test database URL
+const app = require("../index").default;
+
+const testDbUrl = "mongodb://localhost:27017/test_cities";
 
 beforeAll(async () => {
   try {
@@ -20,8 +21,6 @@ beforeAll(async () => {
 afterAll(async () => {
   await mongoose.connection.close();
 });
-
-
 
 describe("POST /cities", () => {
   it("should create a new city", async () => {
