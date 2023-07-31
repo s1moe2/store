@@ -106,14 +106,16 @@ $ curl 'http://localhost:3000/animals' --silent | jq
 $ curl 'http://localhost:3000/animals/64c57835ee30d3308d846996' --silent | jq
 
 # POST
+# ATTENTION: "height" and "weight" is in cm and kg respectively
 $ curl 'http://localhost:3000/animals' \
   --silent \
   --request POST \
   --header "Content-Type: application/json" \
-  --data '{"name": "Snail", "specie": "Invertebrates", "height": 15, "weight": 0.8}' \
+  --data '{"name": "Buffalo", "specie": "Mammals", "height": 250, "weight": 1500}' \
   --verbose
 
 # PUT
+# ATTENTION: "height" and "weight" is in cm and kg respectively
 $ curl 'http://localhost:3000/animals/64c57835ee30d3308d846996' \
   --silent \
   --request PUT \

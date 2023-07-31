@@ -56,8 +56,8 @@ export const update = async (
   id: string,
   name: string,
   specie: string,
-  height: number,
-  weight: number,
+  height: number, //in cm
+  weight: number, //in kg
 ) => {
   const db = await getDb();
   const collection = db.collection<Animals>("animals");

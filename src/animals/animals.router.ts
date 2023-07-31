@@ -22,9 +22,9 @@ router.get("/:id", async (req: Request, res: Response) => {
 
 const validationPost = [
   body("name").notEmpty().exists(),
-  body("specie").notEmpty().exists(),
-  body("height").notEmpty().exists(),
-  body("weight").notEmpty().exists(),
+  body("specie").notEmpty().exists(), 
+  body("height").notEmpty().exists(), // in cm 
+  body("weight").notEmpty().exists(), // in kg
 ];
 type RequestPost = Request<
   { id: string },
@@ -51,8 +51,8 @@ router.post("/", validationPost, async (req: RequestPost, res: Response) => {
 const validationPut = [
   body("name").notEmpty().exists(),
   body("specie").notEmpty().exists(),
-  body("height").notEmpty().exists(),
-  body("weight").notEmpty().exists(),
+  body("height").notEmpty().exists(), // in cm 
+  body("weight").notEmpty().exists(), // in kg
 ];
 type RequestPut = Request<
   { id: string },
