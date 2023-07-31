@@ -1,5 +1,5 @@
-import request from 'supertest';
-import express, { Response } from 'express'; // Import Response type
+import request, { Response } from 'supertest';
+import express from 'express';
 import { router } from './animals.router';
 import { create, getAll, getById, update, remove } from './animals.service';
 import { Animals } from './animals.model';
@@ -44,7 +44,7 @@ describe('Animals CRUD Test', () => {
   it('should get all animals', async () => {
     (getAll as jest.Mock).mockResolvedValueOnce([mockAnimal]);
 
-    const response: Response = await request(app).get('/animals'); 
+    const response: Response  = await request(app).get('/animals'); 
 
     expect(response.status).toBe(200);
     expect(response.body).toEqual([mockAnimal]);
