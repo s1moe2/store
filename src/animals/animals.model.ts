@@ -6,9 +6,3 @@ export interface Animals extends Document {
   height: number;
   weight: number;
 }
-
-
-// mammals
-// birds
-// reptiles
-// invertebrates
