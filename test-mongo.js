@@ -1,8 +1,12 @@
 const { MongoClient, ServerApiVersion } = require('mongodb');
 
+// const dbUsr = "dbUser";
+// const dbPwd = "123";
+// const uri = `mongodb+srv://${dbUsr}:${dbPwd}@cluster0.gppdsiv.mongodb.net/store?retryWrites=true&w=majority`;
+
 const dbUsr = "dbUser";
 const dbPwd = "123";
-const uri = `mongodb+srv://${dbUsr}:${dbPwd}@cluster0.gppdsiv.mongodb.net/store?retryWrites=true&w=majority`;
+const uri = `mongodb+srv://${dbUsr}:${dbPwd}@cluster0.cfdok48.mongodb.net/?retryWrites=true&w=majority`;
 
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
 const client = new MongoClient(uri, {

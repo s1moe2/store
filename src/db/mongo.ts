@@ -2,7 +2,8 @@ import { MongoClient, Db } from "mongodb";
 
 const dbUsr = "dbUser";
 const dbPwd = "123";
-const uri = `mongodb+srv://${dbUsr}:${dbPwd}@cluster0.gppdsiv.mongodb.net/store?retryWrites=true&w=majority`;
+const uri = `mongodb+srv://${dbUsr}:${dbPwd}@cluster0.gppdsiv.mongodb.net/store?retryWrites=true&w=majority`; // Db Gerardo
+// const uri = `mongodb+srv://${dbUsr}:${dbPwd}@cluster0.cfdok48.mongodb.net/?retryWrites=true&w=majority`; //DB Pedro
 
 let db: Db
 
