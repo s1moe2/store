@@ -1,49 +1,46 @@
-import CityModel from "./cities.model";
+import { ObjectId } from "mongodb";
+import { getDb } from "../db/mongo";
 import { City } from "./cities.model";
 
-export const getAll = async () => {
-  const cities = await CityModel.find();
+export const getAll = async (): Promise<City[]> => {
+  const db = await getDb();
+  const cities = await db.collection<City>("cities").find().toArray();
   return cities;
 };
 
-export const create = async (name: string) => {
-  const city: City = {
-    id: generateCityId(),
+export const create = async (name: string): Promise<City> => {
+  const db = await getDb();
+  const city: Omit<City, "_id"> = {
     name,
     mapUrl: "",
     airport: "",
     population: 0,
   };
-  const result = await CityModel.create(city);
-  return result;
+  const result = await db.collection<City>("cities").insertOne(city as City);
+
+  return { ...city, _id: result.insertedId };
 };
 
-export const update = async (id: string, newName: string) => {
-  const city = await CityModel.findById(id);
-  if (!city) {
-    return undefined;
-  }
-
-  city.name = newName;
-  await city.save();
-  return city;
+export const update = async (id: string, newName: string): Promise<City | null> => {
+  const db = await getDb();
+  const result = await db
+    .collection<City>("cities")
+    .findOneAndUpdate(
+      { _id: new ObjectId(id) },
+      { $set: { name: newName } },
+      { returnDocument: "after" },
+    );
+  return result.value || null;
 };
 
-export const getById = async (id: string) => {
-  const city = await CityModel.findById(id);
-  return city;
+export const getById = async (id: string): Promise<City | null> => {
+  const db = await getDb();
+  const city = await db.collection<City>("cities").findOne({ _id: new ObjectId(id) });
+  return city || null;
 };
 
-export const deleteById = async (id: string) => {
-  const result = await CityModel.deleteOne({ _id: id });
-  return result;
+export const deleteById = async (id: string): Promise<number> => {
+  const db = await getDb();
+  const result = await db.collection<City>("cities").deleteOne({ _id: new ObjectId(id) });
+  return result.deletedCount || 0;
 };
-
-function generateCityId() {
-  const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-  let cityId = "";
-  for (let i = 0; i < 10; i++) {
-    cityId += chars.charAt(Math.floor(Math.random() * chars.length));
-  }
-  return cityId;
-}

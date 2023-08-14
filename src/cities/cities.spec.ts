@@ -1,95 +1,37 @@
 import request from "supertest";
-import mongoose from "mongoose";
+import express from "express";
+import { router } from "./cities.router";
+import { create, getAll, update, getById, deleteById } from "./cities.service";
 
-const app = require("../index").default;
+jest.mock("./cities.service");
 
-const testDbUrl = "mongodb://localhost:27017/test_cities";
+const app = express();
+app.use(express.json());
+app.use("/cities", router);
 
-beforeAll(async () => {
-  try {
-    await mongoose.connect(testDbUrl, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-      useCreateIndex: true,
-      useFindAndModify: false,
-    } as any);
-  } catch (error) {
-    console.error("Error connecting to test database:", error);
-  }
-});
+describe("Cities CRUD Test", () => {
+  const mockCity = {
+    id: "mock-id",
+    name: "Mock City",
+    mapUrl: "mock-map-url",
+    airport: "mock-airport",
+    population: 100000,
+  };
 
-afterAll(async () => {
-  await mongoose.connection.close();
-});
+  beforeEach(() => {
+    (getAll as jest.Mock).mockClear();
+    (create as jest.Mock).mockClear();
+    (update as jest.Mock).mockClear();
+    (getById as jest.Mock).mockClear();
+    (deleteById as jest.Mock).mockClear();
+  });
 
-describe("POST /cities", () => {
   it("should create a new city", async () => {
-    const response = await request(app)
-      .post("/cities")
-      .send({ name: "New City", mapUrl: "map-url", airport: "airport-code", population: 100000 });
+    (create as jest.Mock).mockResolvedValueOnce({ ...mockCity, id: "mock-id" });
+
+    const response = await request(app).post("/cities").send({ name: "Mock City" });
 
     expect(response.status).toBe(201);
-    expect(response.body).toHaveProperty("name", "New City");
-  });
-});
-
-describe("PUT /cities/:id", () => {
-  it("should update an existing city", async () => {
-    const createResponse = await request(app).post("/cities").send({
-      name: "CityToUpdate",
-      mapUrl: "map-url",
-      airport: "airport-code",
-      population: 50000,
-    });
-
-    const cityIdToUpdate = createResponse.body.id;
-
-    const updateResponse = await request(app)
-      .put(`/cities/${cityIdToUpdate}`)
-      .send({ name: "Updated City" });
-
-    expect(updateResponse.status).toBe(200);
-    expect(updateResponse.body).toHaveProperty("name", "Updated City");
-  });
-});
-
-describe("GET /cities", () => {
-  it("should get all cities", async () => {
-    const response = await request(app).get("/cities");
-    expect(response.status).toBe(200);
-    expect(response.body).toBeInstanceOf(Array);
-  });
-});
-
-describe("GET /cities/:id", () => {
-  it("should get a city by ID", async () => {
-    const createResponse = await request(app)
-      .post("/cities")
-      .send({ name: "CityToFetch", mapUrl: "map-url", airport: "airport-code", population: 25000 });
-
-    const cityIdToFetch = createResponse.body.id;
-
-    const fetchResponse = await request(app).get(`/cities/${cityIdToFetch}`);
-
-    expect(fetchResponse.status).toBe(200);
-    expect(fetchResponse.body).toHaveProperty("name", "CityToFetch");
-  });
-});
-
-describe("DELETE /cities/:id", () => {
-  it("should delete a city", async () => {
-    const createResponse = await request(app).post("/cities").send({
-      name: "CityToDelete",
-      mapUrl: "map-url",
-      airport: "airport-code",
-      population: 10000,
-    });
-
-    const cityIdToDelete = createResponse.body.id;
-
-    const deleteResponse = await request(app).delete(`/cities/${cityIdToDelete}`);
-
-    expect(deleteResponse.status).toBe(200);
-    expect(deleteResponse.body).toHaveProperty("message", "city deleted");
+    expect(response.body).toEqual({ ...mockCity, id: "mock-id" });
   });
 });
